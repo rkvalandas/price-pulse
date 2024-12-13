@@ -57,7 +57,7 @@ const loginUser = async (req, res) => {
         sameSite: "None", // Allow cross-origin requests
         maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week
       });
-      
+
       res.json({
         _id: user._id,
         name: user.name,
@@ -72,17 +72,15 @@ const loginUser = async (req, res) => {
 };
 
 // Logout User
+
 const logoutUser = (req, res) => {
-  const logoutUser = (req, res) => {
-    res.cookie("jwt", "", {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // Only send cookie over HTTPS
-      sameSite: "None", // For cross-origin requests
-      expires: new Date(0), // Clear cookie by setting expiration date to past
-    });
-    res.status(200).json({ message: "Logged out successfully" });
-  };
-  
+  res.cookie("jwt", "", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production", // Only send cookie over HTTPS
+    sameSite: "None", // For cross-origin requests
+    expires: new Date(0), // Clear cookie by setting expiration date to past
+  });
+  res.status(200).json({ message: "Logged out successfully" });
 };
 
 // Verify Email
