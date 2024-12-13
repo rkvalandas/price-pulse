@@ -108,5 +108,5 @@ This project is licensed under the MIT License.
 ---
 
 ## Contact
-- **Email**: your.email@example.com
+- **Email**: valandasuramakrishna@gmail.com
 - **GitHub**: [rkvalandasu](https://github.com/rkvalandas)
