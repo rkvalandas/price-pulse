@@ -23,7 +23,7 @@ connectMongoDb(process.env.MONGO_URI)
   .catch((err) => console.log("error:", err));
 
 const corsConfig = {
-  origin: "http://localhost:5173",
+  origin: process.env.CLIENT_URL,
   credentials: true,
   method: ["GET", "POST", "PUT", "DELETE"],
 };
