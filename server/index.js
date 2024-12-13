@@ -15,11 +15,6 @@ const PORT = process.env.PORT || 8000;
 
 dotenv.config();
 
-if (process.env.NODE_ENV !== "production") {
-  dotenv.config({
-    path: "./.env",
-  });
-}
 
 connectMongoDb(process.env.MONGO_URI)
   .then(() => {

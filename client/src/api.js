@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const BACKEND_API_URL =
-  "https://pricepulse-backend.vercel.app" || "http://localhost:8000";
+  "https://price-pulse-api.vercel.app" || "http://localhost:8000";
 
 const API = axios.create({
   baseURL: BACKEND_API_URL,

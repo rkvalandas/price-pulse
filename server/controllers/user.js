@@ -53,10 +53,11 @@ const loginUser = async (req, res) => {
       const token = generateToken(user._id);
       res.cookie("jwt", token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
-        maxAge: 7 * 24 * 60 * 60 * 1000,
+        secure: true, // Only over HTTPS
+        sameSite: "None", // Allow cross-origin requests
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week
       });
+      
       res.json({
         _id: user._id,
         name: user.name,
