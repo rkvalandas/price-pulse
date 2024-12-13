@@ -1,72 +1,107 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { deleteAlert, getAlerts } from "../../api";
-import { useAuth } from "../Authenticate/AuthProvider";
 import AlertInfo from "../UIcomponents/AlertInfo";
 
+// Reusable Alert Card Component
+const AlertCard = React.memo(({ alert, onDelete }) => (
+  <div className="card card-compact bg-base-200 border border-base-300 shadow-xl p-3 rounded-3xl">
+    <div className="card-body">
+      <h2 className="card-title">{alert.title}</h2>
+      <p>
+        <strong>Price Target:</strong> <span>&#8377;</span> {alert.threshold}
+      </p>
+      <div className="card-actions justify-between">
+        <button
+          className="btn btn-sm btn-warning rounded-2xl"
+          onClick={() => onDelete(alert.id)}
+        >
+          Delete
+        </button>
+        <Link to={`/`} className="btn btn-sm btn-primary rounded-2xl">
+          View Details
+        </Link>
+      </div>
+    </div>
+  </div>
+));
+
 export default function Alerts() {
-  // Sample data for alerts
   const [alerts, setAlerts] = useState([]);
-  const [showAlert, setShowAlert] = useState(false);
-  const { isAuthenticated } = useAuth();
+  const [loading, setLoading] = useState(true); // Unified loading state
+  const [error, setError] = useState(null);
+  const [showLoginAlert, setShowLoginAlert] = useState(false);
 
-
-  const handleDeleteAlert = async (id) => {
-    await deleteAlert(id);
-    setAlerts(alerts.filter((alert) => alert.id !== id));
-  };
-
-  // Function to add a new alert
-  const addNewAlert = (newAlert) => {
-    setAlerts((prevAlerts) => [
-      ...prevAlerts, // Keep the existing alerts
-      newAlert, // Add the new alert
-    ]);
-  };
-  // Function to add an array of new alerts
-  const handleAlerts = (newAlerts) => {
-    newAlerts.forEach((alert) => {
-      addNewAlert({
+  // Fetch alerts
+  const fetchAlerts = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const { data } = await getAlerts();
+      const formattedAlerts = data.alerts.map((alert) => ({
         id: alert._id,
         title: `Price drop on ${alert.title}`,
         threshold: alert.targetPrice,
-      });
-    });
-  };
-
-  const triggerAlert = () => {
-    setShowAlert(true);
-    setTimeout(() => setShowAlert(false), 5000); // Hide alert after 5 seconds
-  };
-
-  useEffect(() => {
-    const fetchAlerts = async () => {
-      if (isAuthenticated) {
-        try {
-          const { data } = await getAlerts();
-          handleAlerts(data.alerts);
-        } catch (error) {
-          console.log(error.response.data.message);
-        }
-      } else {
-        triggerAlert();
-      }
-    };
-    fetchAlerts();
+      }));
+      setAlerts(formattedAlerts);
+    } catch (err) {
+      setError(err.response?.data?.message || "Failed to load alerts");
+    }
+    setLoading(false);
   }, []);
+
+  // Delete an alert
+  const handleDeleteAlert = async (id) => {
+    try {
+      await deleteAlert(id);
+      setAlerts((prev) => prev.filter((alert) => alert.id !== id));
+    } catch (err) {
+      console.error("Error deleting alert:", err.response?.data?.message || err.message);
+    }
+  };
+
+  // Handle loading and error states
+  useEffect(() => {
+    fetchAlerts();
+  }, [fetchAlerts]);
+
+  // Render Loading
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <p className="text-gray-500">Loading...</p>
+      </div>
+    );
+  }
+
+  // Render Error
+  if (error) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="text-center">
+          <p className="text-red-500">{error}</p>
+          <button
+            onClick={fetchAlerts}
+            className="mt-4 btn btn-sm btn-primary rounded-lg"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
-      {showAlert && <AlertInfo message="Login to create alerts" type="info" />}
       {/* Alerts Section */}
       <section className="mt-36 min-h-96">
         <div className="text-center mb-8">
           <h2 className="text-2xl font-bold">Your Alerts</h2>
           <p className="text-lg">Manage your price drop alerts here.</p>
         </div>
-        {isAuthenticated && <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-6">
-          {alerts.length === 0 ? (
-            <div className="flex items-center justify-center col-span-full">
+
+        {alerts.length === 0 ? (
+          <div className="flex items-center justify-center col-span-full">
             <div role="alert" className="alert alert-info w-72">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -84,40 +119,14 @@ export default function Alerts() {
               <span>No alerts created yet.</span>
             </div>
           </div>
-          
-          ) : (
-            alerts.map((alert) => (
-              <div
-                key={alert.id}
-                className="card card-compact bg-base-200 border border-base-300 shadow-xl p-3 rounded-3xl"
-              >
-                <div className="card-body">
-                  <h2 className="card-title">{alert.title}</h2>
-                  <p>
-                    <strong>Price Target: </strong> <span>&#8377;</span> 
-                    {alert.threshold}
-                  </p>
-                  <div className="card-actions justify-between">
-                    <button
-                      className="btn btn-sm btn-warning rounded-2xl"
-                      onClick={() => handleDeleteAlert(alert.id)}
-                    >
-                      Delete
-                    </button>
-                    <Link
-                      to={`/`}
-                      className="btn btn-sm btn-primary rounded-2xl"
-                    >
-                      View Details
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            ))
-          )}
-        </div>}
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-6">
+            {alerts.map((alert) => (
+              <AlertCard key={alert.id} alert={alert} onDelete={handleDeleteAlert} />
+            ))}
+          </div>
+        )}
       </section>
-      <div className="mb-28"></div>
     </div>
   );
 }
