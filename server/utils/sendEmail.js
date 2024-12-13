@@ -9,8 +9,8 @@ const transporter = nodemailer.createTransport({
         ciphers: 'SSLv3', // Force SSLv3 for backward compatibility (optional, may not be needed)
     },
     auth: {
-        user: process.env.MAIL_SENDER, // Your Gmail address from environment variables
-        pass: process.env.MAIL_PASS, // App password or your Gmail password (consider using an app password)
+        user: process.env.EMAIL_USER, // Your Gmail address from environment variables
+        pass: process.env.EMAIL_PASS, // App password or your Gmail password (consider using an app password)
     }
 });
 
