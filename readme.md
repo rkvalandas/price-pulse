@@ -46,7 +46,7 @@ Explore the application here: [Price Pulse Live](https://price-pulse-seven.verce
 
 ### Clone the Repository
 ```bash
-$ git clone https://github.com/rkvalandas/price-pulse
+$ git clone https://github.com/rkvalandas/price_pulse
 $ cd price-pulse
 ```
 
