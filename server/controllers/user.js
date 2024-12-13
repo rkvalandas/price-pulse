@@ -73,11 +73,16 @@ const loginUser = async (req, res) => {
 
 // Logout User
 const logoutUser = (req, res) => {
-  res.cookie("jwt", "", {
-    httpOnly: true,
-    expires: new Date(0),
-  });
-  res.status(200).json({ message: "Logged out successfully" });
+  const logoutUser = (req, res) => {
+    res.cookie("jwt", "", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // Only send cookie over HTTPS
+      sameSite: "None", // For cross-origin requests
+      expires: new Date(0), // Clear cookie by setting expiration date to past
+    });
+    res.status(200).json({ message: "Logged out successfully" });
+  };
+  
 };
 
 // Verify Email
