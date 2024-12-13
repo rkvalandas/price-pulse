@@ -1,57 +1,67 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { deleteAlert, getAlerts } from "../../api";
-import AlertInfo from "../UIcomponents/AlertInfo";
 
 export default function Alerts() {
-  // Sample data for alerts
+  // State for alerts and loading/error states
   const [alerts, setAlerts] = useState([]);
-  const [showAlert, setShowAlert] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const handleDeleteAlert = async (id) => {
-    await deleteAlert(id);
-    setAlerts(alerts.filter((alert) => alert.id !== id));
-  };
+  // Handle deleting an alert
+  const handleDeleteAlert = useCallback(async (id) => {
+    try {
+      await deleteAlert(id);
+      setAlerts((prevAlerts) => prevAlerts.filter((alert) => alert.id !== id));
+    } catch (error) {
+      console.error("Error deleting alert:", error);
+    }
+  }, []);
 
-  // Function to add a new alert
-  const addNewAlert = (newAlert) => {
-    setAlerts((prevAlerts) => [
-      ...prevAlerts, // Keep the existing alerts
-      newAlert, // Add the new alert
-    ]);
-  };
-  
-  // Function to add an array of new alerts
-  const handleAlerts = (newAlerts) => {
-    newAlerts.forEach((alert) => {
-      addNewAlert({
-        id: alert._id,
-        title: `Price drop on ${alert.title}`,
-        threshold: alert.targetPrice,
-      });
-    });
-  };
+  // Handle alerts array
+  const handleAlerts = useCallback((newAlerts) => {
+    const formattedAlerts = newAlerts.map((alert) => ({
+      id: alert._id,
+      title: `Price drop on ${alert.title}`,
+      threshold: alert.targetPrice,
+    }));
+    setAlerts(formattedAlerts);
+  }, []);
 
-  const triggerAlert = () => {
-    setShowAlert(true);
-    setTimeout(() => setShowAlert(false), 5000); // Hide alert after 5 seconds
-  };
-
+  // Fetch alerts from API
   useEffect(() => {
     const fetchAlerts = async () => {
       try {
         const { data } = await getAlerts();
         handleAlerts(data.alerts);
+        setLoading(false); // Stop loading after data is fetched
       } catch (error) {
-        console.log(error.response.data.message);
+        setError("Failed to load alerts.");
+        setLoading(false); // Stop loading even if there's an error
+        console.error("Error fetching alerts:", error);
       }
     };
     fetchAlerts();
-  }, []);
+  }, [handleAlerts]);
+
+  if (loading) {
+    return (
+      <div className="text-center mt-10">
+        <p>Loading alerts...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-center mt-10">
+        <p className="text-red-500">{error}</p>
+      </div>
+    );
+  }
 
   return (
     <div>
-      {showAlert && <AlertInfo message="Login to create alerts" type="info" />}
       {/* Alerts Section */}
       <section className="mt-36 min-h-96">
         <div className="text-center mb-8">
@@ -87,7 +97,7 @@ export default function Alerts() {
                 <div className="card-body">
                   <h2 className="card-title">{alert.title}</h2>
                   <p>
-                    <strong>Price Target: </strong> <span>&#8377;</span> 
+                    <strong>Price Target: </strong> <span>&#8377;</span>
                     {alert.threshold}
                   </p>
                   <div className="card-actions justify-between">
