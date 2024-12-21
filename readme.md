@@ -16,7 +16,7 @@
 ---
 
 ## Live Demo
-Explore the application here: [Price Pulse Live](https://price-pulse-seven.vercel.app/)
+Explore the application here: [Price Pulse Live](https://prize-pulse.vercel.app/)
 
 ---
 
