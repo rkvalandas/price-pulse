@@ -1,29 +1,8 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { searchProduct } from "../../api";
+import React from "react";
+import { Link} from "react-router-dom";
 import backgroundImage from "../../assets/background.jpeg";
 
 export default function Home() {
-  const [url, setUrl] = useState("");
-  const navigate = useNavigate();
-
-  const handleSearchChange = (e) => {
-    setUrl(e.target.value);
-  };
-
-  const handleSearchSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const { data } = await searchProduct(url); // Call the helper function
-
-      // Redirect to Product Page with product data
-      navigate("/product", { state: { data, user: data.user } });
-    } catch (error) {
-      console.error("Error fetching product:", error);
-    }
-  };
-
   return (
     <div className="w-full">
       {/* Main Hero Section */}
@@ -43,26 +22,6 @@ export default function Home() {
               Find the best deals and track the price history of your favorite
               products.
             </p>
-            <form
-              onSubmit={handleSearchSubmit}
-              className="flex flex-wrap justify-center items-center space-x-4"
-            >
-              <label className="input input-bordered flex items-center gap-2 rounded-2xl h-12 shadow shadow-gray-500">
-                <input
-                  type="text"
-                  className="grow"
-                  placeholder="Search"
-                  value={url}
-                  onChange={handleSearchChange}
-                />
-              </label>
-              <button
-                type="submit"
-                className="h-12 w-24 font-semibold bg-teal-400 shadow-sm border border-teal-700 hover:bg-teal-500 hover:transition-colors text-black shadow-gray-600 m-2 rounded-2xl"
-              >
-                Search
-              </button>
-            </form>
           </div>
         </div>
       </section>

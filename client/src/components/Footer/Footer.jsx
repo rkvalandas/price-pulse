@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="flex flex-col md:flex-row justify-between items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
         {/* Company Info */}
         <div className="text-center md:text-left">
-          <h2 className="text-2xl font-bold">Price Tracker</h2>
+          <h2 className="text-2xl font-bold">Price Pulse</h2>
           <p className="text-sm md:text-base mt-2">
             Track your favorite products' prices effortlessly with our tool.
           </p>
@@ -71,7 +71,7 @@ export default function Footer() {
 
       {/* Copyright */}
       <div className="mt-6 text-center text-sm text-gray-500">
-        <p>© 2024 Price Tracker. All rights reserved.</p>
+        <p>© 2024 Price Pulse. All rights reserved.</p>
       </div>
     </footer>
   );

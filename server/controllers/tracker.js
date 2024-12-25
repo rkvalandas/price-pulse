@@ -10,11 +10,9 @@ async function handlePriceTracker(req, res) {
     if (alerts.length === 0) {
       return res.status(404).json({ message: "No alerts found to process." });
     }
-
+    
     // Process each alert using a `for...of` loop for proper async handling
     for (const alert of alerts) {
-      console.log(`Processing alert for product URL: ${alert.url}`);
-
       try {
         // Fetch the page HTML
         const { data } = await axios.get(alert.url);
@@ -24,11 +22,9 @@ async function handlePriceTracker(req, res) {
         const priceText = $("span.a-price-whole")
           .first()
           .text()
-          .replace(",", "")
+          .replace(/,/g, "") // Removes all commas globally
           .trim();
         const currentPrice = parseFloat(priceText);
-
-        console.log(`Current Price for ${alert.url}: ${currentPrice}`);
 
         // Check if the current price is below or equal to the target price
         if (currentPrice <= alert.targetPrice) {
@@ -93,6 +89,7 @@ async function handlePriceTracker(req, res) {
                 <h1>Price Drop Alert!</h1>
                 </div>
                 <div class="content">
+                <h4>${alert.title}</h4>
                 <p>Good news! The price for the product you are tracking has dropped to <strong>${currentPrice}</strong>.</p>
                 <p>Don't miss this opportunity to grab the product at a discounted price.</p>
                 <a href="${alert.url}" target="_blank">View Product</a>
@@ -108,8 +105,12 @@ async function handlePriceTracker(req, res) {
           `;
 
           // Send the email
-          await sendEmail(alert.userEmail, "🚨 Price Drop Alert for Your Tracked Product!", emailContent);
-          console.log(`Email sent to ${alert.userEmail} for price drop alert.`);
+          await sendEmail(
+            alert.userEmail,
+            "🚨 Price Drop Alert for Your Tracked Product!",
+            emailContent
+          );
+          await Alert.findByIdAndDelete(alert._id);
         }
       } catch (innerError) {
         console.error(
