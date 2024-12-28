@@ -1,14 +1,13 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
-const path = require("path");
 const { connectMongoDb } = require("./config/connectdb");
 const cors = require("cors");
 
 const userRoute = require("./routes/user");
 const productRoute = require("./routes/product");
 const alertRoute = require("./routes/alert");
-const priceTrackerRoute = require("./routes/tracker");
+require("./service/scheduler")
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -42,7 +41,6 @@ app.get("/", (req, res) => {
 app.use("/api/user", userRoute);
 app.use("/api/product", productRoute);
 app.use("/api/alerts", alertRoute);
-app.use("/api/pricetracker", priceTrackerRoute);
 
 app.listen(PORT, () => {
   console.log(`Listening at port: ${PORT}`);
