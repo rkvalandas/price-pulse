@@ -68,6 +68,7 @@ export default function Header() {
           <div className="flex">
             <label className="input input-bordered flex items-center gap-2 rounded-3xl h-10">
               <input
+                name="search"
                 type="text"
                 className="grow"
                 placeholder="Search"
@@ -100,17 +101,19 @@ export default function Header() {
         {/* Login Button (hidden on mobile) */}
         <div className="hidden md:block">
           {isAuthenticated ? (
-            <button onClick={logout} className=" text-sm h-10 w-16 font-semibold bg-red-500 border border-red-600 hover:bg-red-600 hover:transition-colors text-black shadow-gray-600 rounded-3xl">
+            <button
+              onClick={logout}
+              className=" text-sm h-10 w-16 font-semibold bg-red-500 border border-red-600 hover:bg-red-600 hover:transition-colors text-black shadow-gray-600 rounded-3xl"
+            >
               Logout
             </button>
           ) : (
             <Link to="/login">
-            <button className=" text-sm h-10 w-16 font-semibold bg-teal-300 border border-teal-700 hover:bg-teal-400 hover:transition-colors text-black shadow-gray-600 rounded-3xl">
-              Login
-            </button>
-          </Link>
+              <button className=" text-sm h-10 w-16 font-semibold bg-teal-300 border border-teal-700 hover:bg-teal-400 hover:transition-colors text-black shadow-gray-600 rounded-3xl">
+                Login
+              </button>
+            </Link>
           )}
-          
         </div>
         <div className="md:hidden flex">
           <div className="md:hidden pr-2">
@@ -149,6 +152,7 @@ export default function Header() {
       <div className="md:hidden flex px-4 py-2">
         <label className="input input-bordered flex items-center gap-2 rounded-3xl h-10 max-w-full min-w-40 w-full">
           <input
+            name="search"
             type="text"
             className="grow"
             placeholder="Search"
@@ -189,17 +193,20 @@ export default function Header() {
             ))}
           </div>
           <div className="px-4 py-2">
-          {isAuthenticated ? (
-            <button onClick={logout} className=" text-sm h-11 w-full font-semibold bg-red-500 border border-red-600 hover:bg-red-600 hover:transition-colors text-black shadow-gray-600 rounded-2xl">
-              Logout
-            </button>
-          ) : (
-            <Link to="/login">
-            <button className=" text-sm h-11 w-full font-semibold bg-teal-300 border border-teal-700 hover:bg-teal-400 hover:transition-colors text-black shadow-gray-600 rounded-2xl">
-              Login
-            </button>
-          </Link>
-          )}
+            {isAuthenticated ? (
+              <button
+                onClick={logout}
+                className=" text-sm h-11 w-full font-semibold bg-red-500 border border-red-600 hover:bg-red-600 hover:transition-colors text-black shadow-gray-600 rounded-2xl"
+              >
+                Logout
+              </button>
+            ) : (
+              <Link to="/login">
+                <button className=" text-sm h-11 w-full font-semibold bg-teal-300 border border-teal-700 hover:bg-teal-400 hover:transition-colors text-black shadow-gray-600 rounded-2xl">
+                  Login
+                </button>
+              </Link>
+            )}
           </div>
         </div>
       )}

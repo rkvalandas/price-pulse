@@ -22,6 +22,7 @@ const ThemeToggle = () => {
       <label className="swap swap-rotate py-2">
         {/* This hidden checkbox controls the state */}
         <input
+        name="theme"
           type="checkbox"
           onChange={handleThemeToggle}
           checked={theme === "dark"}
