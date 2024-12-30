@@ -12,15 +12,21 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
-        const response = await verify(); // Call the verify API
-        setIsAuthenticated(response.status === 200); // Set authentication state
+        const response = await verify();
+        if (response.data.isAuthenticated) {
+          setIsAuthenticated(true);
+        } else {
+          setIsAuthenticated(false);
+        }
       } catch (error) {
-        setIsAuthenticated(false); // Handle errors
+        console.error("Error checking authentication status:", error);
+        setIsAuthenticated(false);
       }
     };
-
+  
     checkLoginStatus();
   }, []);
+  
 
   // Login handler
   const handleLogin = async (userData) => {

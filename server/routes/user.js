@@ -18,28 +18,51 @@ router.post("/verify-email", verifyEmail);
 router.post("/forgot-password", forgotPassword);
 router.post("/reset-password", resetPassword);
 router.get("/verify", async (req, res) => {
-  const token = req.cookies.jwt;
-  if (!token) {
-    return;
-  }
   try {
+    // Check for JWT token in cookies
+    const token = req.cookies.jwt;
+    if (!token) {
+      return res.status(200).json({
+        isAuthenticated: false,
+        message: "User not authenticated, no token provided",
+      });
+    }
+
+    // Verify the token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = await User.findById(decoded.id).select("-password");
+
+    // Find the user associated with the token
+    const user = await User.findById(decoded.id).select("-password");
+    if (!user) {
+      return res.status(200).json({
+        isAuthenticated: false,
+        message: "User not found",
+      });
+    }
+
+    // Return success response with user data
     res.status(200).json({
+      isAuthenticated: true,
       message: "User is authenticated",
       user: {
-        id: req.user.id,
-        email: req.user.email,
+        id: user.id,
+        email: user.email,
       },
     });
   } catch (error) {
     if (error.name === "TokenExpiredError") {
-      return res
-        .status(401)
-        .json({ message: "Token expired, please login again" });
+      return res.status(200).json({
+        isAuthenticated: false,
+        message: "Token expired, please log in again",
+      });
     }
-    res.status(401).json({ message: "Not authorized, token failed" });
+
+    res.status(200).json({
+      isAuthenticated: false,
+      message: "Authentication failed due to an error",
+    });
   }
 });
+
 
 module.exports = router;
