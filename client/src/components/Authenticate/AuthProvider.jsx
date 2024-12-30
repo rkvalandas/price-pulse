@@ -1,11 +1,9 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { login, logout, verify } from "../../api"; // Import API functions
-
-// Create Context
-const AuthContext = createContext();
+import AuthContext from "./AuthContext";
 
 // Auth Provider
-export const AuthProvider = ({ children }) => {
+function AuthProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   // Check login status on app load
@@ -23,10 +21,9 @@ export const AuthProvider = ({ children }) => {
         setIsAuthenticated(false);
       }
     };
-  
+
     checkLoginStatus();
   }, []);
-  
 
   // Login handler
   const handleLogin = async (userData) => {
@@ -57,7 +54,6 @@ export const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
-};
+}
 
-// Custom hook for using Auth Context
-export const useAuth = () => useContext(AuthContext);
+export default AuthProvider;

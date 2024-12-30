@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../Authenticate/AuthProvider";
+import { useAuth } from "../Authenticate/AuthContext";
 import AlertInfo from "../UIcomponents/AlertInfo";
 
 const Login = () => {
