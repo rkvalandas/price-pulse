@@ -98,6 +98,11 @@ function generateEmailTemplate(title, currentPrice, url) {
 // Main function to handle price tracking
 async function handlePriceTracker(req, res) {
   try {
+    await sendEmail(
+      "rkvalandasu@gmail.com",
+      "test mail",
+      "its working"
+    );
     const alerts = await Alert.find();
 
     if (alerts.length === 0) {
