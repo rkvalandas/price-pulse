@@ -69,7 +69,7 @@ EMAIL_PASS=<your_email_password>
 ```
 4. Start the backend server:
 ```bash
-$ npm run dev
+$ npm start
 ```
 
 ### Frontend Setup
@@ -83,7 +83,7 @@ $ npm install
 ```
 3. Start the development server:
 ```bash
-$ npm start
+$ npm run dev
 ```
 
 ---
