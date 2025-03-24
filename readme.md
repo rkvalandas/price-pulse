@@ -1,7 +1,7 @@
 # Price Pulse
 
 ## Overview
-**Price Pulse** is a cutting-edge web application that exclusively tracks Amazon product prices. By setting a target price, users receive instant email notifications whenever the price of their desired product matches or drops below the target. Designed with user convenience in mind, this MERN stack project offers seamless functionality for bargain hunters.
+**Price Pulse** is a web application that exclusively tracks Amazon product prices. By setting a target price, users receive instant email notifications whenever the price of their desired product matches or drops below the target. Designed with user convenience in mind, this MERN stack project offers seamless functionality for bargain hunters.
 
 ---
 
