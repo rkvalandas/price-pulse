@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
 import { searchProduct } from "../../api";
 import { useAuth } from "../Authenticate/AuthContext";
+import { motion, AnimatePresence } from "framer-motion";
 import logo from "../../assets/logo.png";
 
 export default function Header() {
   const [openNav, setOpenNav] = useState(false);
   const [url, setUrl] = useState("");
+  const [searchFocused, setSearchFocused] = useState(false);
   const { isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const navItems = [
-    { title: "Home", href: "/" },
-    { title: "Alerts", href: "/alerts" },
-  ];
+  // Navigation items removed as per requirement
+  const navItems = [];
 
   useEffect(() => {
     const handleResize = () => {
@@ -26,190 +27,351 @@ export default function Header() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Redirect to alerts page when logged in
+  useEffect(() => {
+    if (isAuthenticated && location.pathname === '/') {
+      navigate('/alerts');
+    }
+  }, [isAuthenticated, location.pathname, navigate]);
+
   const handleSearch = async (e) => {
     e.preventDefault();
 
-    try {
-      const { data } = await searchProduct(url); // Call the helper function
+    if (!url.trim()) {
+      return; // Prevent empty searches
+    }
 
-      // Log the user for debugging
-      console.log("User Data:", data.user);
+    try {
+      // Show loading state
+      navigate("/search", { state: { loading: true } });
+
+      const { data } = await searchProduct(url); // Call the helper function
 
       // Redirect to Product Page with product data
       navigate("/product", { state: { data, user: data.user } });
     } catch (error) {
       console.error("Error fetching product:", error);
+      // Could redirect to an error page or show error message
     }
   };
 
+  const closeNav = () => {
+    setOpenNav(false);
+  };
+
   return (
-    <nav className="fixed justify-self-center max-w-full min-w-80 w-5/6 top-0 object-center mx-2 mt-4 inset-x-0 rounded-3xl shadow-md z-50 bg-base-300">
-      <div className="px-4 py-2 flex justify-between items-center">
+    <motion.nav
+      className="fixed justify-self-center max-w-7xl w-11/12 top-0 mx-auto mt-4 inset-x-0 rounded-xl shadow-lg z-50 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 backdrop-blur-md bg-opacity-95 dark:bg-opacity-95"
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+    >
+      <div className="px-4 py-3 flex justify-between items-center">
         {/* Logo */}
-        <div className="text-md font-semibold">
-          <img src={logo} alt="Logo" className="h-10 w-10" />
+        <Link to="/" className="flex items-center space-x-2">
+          <motion.img
+            src={logo}
+            alt="Price Pulse Logo"
+            className="h-9 w-9"
+            whileHover={{ rotate: 10, scale: 1.1 }}
+            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+          />
+          <span className="text-lg font-bold text-gray-800 dark:text-white hidden sm:block">
+            Price Pulse
+          </span>
+        </Link>
+
+        {/* Navigation Links removed as per requirement */}
+        <div className="hidden md:flex items-center justify-center flex-1 ml-6">
+
+          <div className="flex ml-6 flex-1 max-w-md">
+            <form onSubmit={handleSearch} className="w-full relative">
+              <div className="relative flex items-center w-full">
+                <input
+                  name="search"
+                  type="text"
+                  className={`w-full pl-4 pr-10 py-2.5 rounded-lg border ${
+                    searchFocused
+                      ? "border-teal-500 ring-2 ring-teal-200 dark:ring-teal-900/30"
+                      : "border-gray-300 dark:border-gray-600"
+                  } focus:outline-none bg-white dark:bg-gray-700 dark:text-white transition-all duration-200`}
+                  placeholder="Search for products..."
+                  value={url}
+                  onChange={(e) => setUrl(e.target.value)}
+                  onFocus={() => setSearchFocused(true)}
+                  onBlur={() => setSearchFocused(false)}
+                />
+                <motion.button
+                  type="submit"
+                  className="absolute right-2 h-8 w-8 flex items-center justify-center text-gray-500 dark:text-gray-300 hover:text-teal-600 dark:hover:text-teal-400"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    className="h-5 w-5"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </motion.button>
+              </div>
+            </form>
+          </div>
         </div>
 
-        {/* Center Navigation Links (hidden on mobile) */}
-        <div className="hidden md:flex space-x-6 justify-center flex-1">
-          {navItems.map((item, index) => (
-            <NavLink
-              key={index}
-              to={item.href}
-              className={({ isActive }) =>
-                `block py-2 pr-4 pl-3 duration-200 ${
-                  isActive ? "text-teal-500" : ""
-                }`
-              }
+        <div className="flex items-center space-x-3">
+          <div className="hidden md:block">
+            <ThemeToggle />
+          </div>
+
+          {/* User Menu / Login Button (hidden on mobile) */}
+          <div className="hidden md:block">
+            {isAuthenticated ? (
+              <div className="flex items-center space-x-3">
+                <motion.div
+                  className="relative group"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <button
+                    onClick={logout}
+                    className="px-4 py-2 rounded-lg bg-gradient-to-r from-red-500 to-red-600 text-white font-medium shadow-sm hover:shadow-md transition-all flex items-center"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5 mr-1.5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                      />
+                    </svg>
+                    Logout
+                  </button>
+                </motion.div>
+              </div>
+            ) : (
+              <div className="flex items-center space-x-2">
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Link to="/login">
+                    <button className="px-4 py-2 rounded-lg bg-gradient-to-r from-teal-500 to-teal-600 text-white font-medium shadow-sm hover:shadow-md transition-all flex items-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5 mr-1.5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
+                        />
+                      </svg>
+                      Login
+                    </button>
+                  </Link>
+                </motion.div>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="hidden sm:block"
+                >
+                  <Link to="/signup">
+                    <button className="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white font-medium border border-gray-200 dark:border-gray-600 transition-all">
+                      Sign Up
+                    </button>
+                  </Link>
+                </motion.div>
+              </div>
+            )}
+          </div>
+
+          <div className="md:hidden flex items-center">
+            <div className="pr-3">
+              <ThemeToggle />
+            </div>
+            {/* Mobile Menu Toggle */}
+            <motion.button
+              className="p-1.5 rounded-lg bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600"
+              onClick={() => setOpenNav(!openNav)}
+              whileTap={{ scale: 0.9 }}
             >
-              {item.title}
-            </NavLink>
-          ))}
-          <div className="flex">
-            <label className="input input-bordered flex items-center gap-2 rounded-3xl h-10">
-              <input
-                name="search"
-                type="text"
-                className="grow"
-                placeholder="Search"
-                value={url}
-                onChange={(e) => setUrl(e.target.value)}
-              />
-            </label>
-            <button
-              className="btn btn-circle btn-outline btn-sm ml-2 h-10 w-10"
-              onClick={handleSearch}
+              {openNav ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6 text-gray-700 dark:text-gray-200"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6 text-gray-700 dark:text-gray-200"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16m-7 6h7"
+                  />
+                </svg>
+              )}
+            </motion.button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Search Bar */}
+      <div className="md:hidden flex px-4 py-2.5">
+        <form onSubmit={handleSearch} className="w-full flex">
+          <div className="relative flex items-center w-full">
+            <input
+              name="search"
+              type="text"
+              className={`w-full pl-4 pr-10 py-2.5 rounded-lg border ${
+                searchFocused
+                  ? "border-teal-500 ring-2 ring-teal-200 dark:ring-teal-900/30"
+                  : "border-gray-300 dark:border-gray-600"
+              } focus:outline-none bg-white dark:bg-gray-700 dark:text-white transition-all duration-200`}
+              placeholder="Search for products..."
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              onFocus={() => setSearchFocused(true)}
+              onBlur={() => setSearchFocused(false)}
+            />
+            <motion.button
+              type="submit"
+              className="absolute right-2 h-8 w-8 flex items-center justify-center text-gray-500 dark:text-gray-300 hover:text-teal-600 dark:hover:text-teal-400"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 16 16"
+                viewBox="0 0 20 20"
                 fill="currentColor"
-                className="h-5 w-5 opacity-70"
+                className="h-5 w-5"
               >
                 <path
                   fillRule="evenodd"
-                  d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                  d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
                   clipRule="evenodd"
                 />
               </svg>
-            </button>
+            </motion.button>
           </div>
-        </div>
-        <div className="hidden md:block mr-2">
-          <ThemeToggle />
-        </div>
-        {/* Login Button (hidden on mobile) */}
-        <div className="hidden md:block">
-          {isAuthenticated ? (
-            <button
-              onClick={logout}
-              className=" text-sm h-10 w-16 font-semibold bg-red-500 border border-red-600 hover:bg-red-600 hover:transition-colors text-black shadow-gray-600 rounded-3xl"
-            >
-              Logout
-            </button>
-          ) : (
-            <Link to="/login">
-              <button className=" text-sm h-10 w-16 font-semibold bg-teal-300 border border-teal-700 hover:bg-teal-400 hover:transition-colors text-black shadow-gray-600 rounded-3xl">
-                Login
-              </button>
-            </Link>
-          )}
-        </div>
-        <div className="md:hidden flex">
-          <div className="md:hidden pr-2">
-            <ThemeToggle />
-          </div>
-          {/* Mobile Menu Toggle */}
-          <button
-            className="md:hidden rounded-xl"
-            onClick={() => setOpenNav(!openNav)}
-          >
-            {openNav ? (
-              <svg
-                className="swap-on fill-current"
-                xmlns="http://www.w3.org/2000/svg"
-                width="32"
-                height="32"
-                viewBox="0 0 512 512"
-              >
-                <polygon points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49" />
-              </svg>
-            ) : (
-              <svg
-                className="swap-off fill-current"
-                xmlns="http://www.w3.org/2000/svg"
-                width="32"
-                height="32"
-                viewBox="0 0 512 512"
-              >
-                <path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z" />
-              </svg>
-            )}
-          </button>
-        </div>
+        </form>
       </div>
-      {/* Mobile Search Bar */}
-      <div className="md:hidden flex px-4 py-2">
-        <label className="input input-bordered flex items-center gap-2 rounded-3xl h-10 max-w-full min-w-40 w-full">
-          <input
-            name="search"
-            type="text"
-            className="grow"
-            placeholder="Search"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-          />
-        </label>
-        <button
-          className="btn btn-circle btn-outline btn-sm ml-2 h-10 w-10"
-          onClick={handleSearch}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            className="h-5 w-5 opacity-70"
-          >
-            <path
-              fillRule="evenodd"
-              d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </button>
-      </div>
+
       {/* Mobile Navigation */}
-      {openNav && (
-        <div className="md:hidden rounded-b-3xl">
-          <div className="space-y-1 py-2">
-            {navItems.map((item, index) => (
-              <a
-                key={index}
-                href={item.href}
-                className="block px-4 py-2 font-medium text-center"
-              >
-                {item.title}
-              </a>
-            ))}
-          </div>
-          <div className="px-4 py-2">
-            {isAuthenticated ? (
-              <button
-                onClick={logout}
-                className=" text-sm h-11 w-full font-semibold bg-red-500 border border-red-600 hover:bg-red-600 hover:transition-colors text-black shadow-gray-600 rounded-2xl"
-              >
-                Logout
-              </button>
-            ) : (
-              <Link to="/login">
-                <button className=" text-sm h-11 w-full font-semibold bg-teal-300 border border-teal-700 hover:bg-teal-400 hover:transition-colors text-black shadow-gray-600 rounded-2xl">
-                  Login
+      <AnimatePresence>
+        {openNav && (
+          <motion.div
+            className="md:hidden rounded-b-xl overflow-hidden border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            {/* Navigation items removed as per requirement */}
+
+            <div className="p-4 border-gray-100 dark:border-gray-700 mt-2">
+              {isAuthenticated ? (
+                <button
+                  onClick={() => {
+                    logout();
+                    closeNav();
+                  }}
+                  className="w-full py-2.5 px-4 flex items-center justify-center rounded-lg bg-gradient-to-r from-red-500 to-red-600 text-white font-medium shadow-sm transition-all"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5 mr-2"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                    />
+                  </svg>
+                  Logout
                 </button>
-              </Link>
-            )}
-          </div>
-        </div>
-      )}
-    </nav>
+              ) : (
+                <div className="space-y-2">
+                  <Link to="/login" onClick={closeNav}>
+                    <button className="w-full py-2.5 px-4 flex items-center justify-center rounded-lg bg-gradient-to-r from-teal-500 to-teal-600 text-white font-medium shadow-sm transition-all">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5 mr-2"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
+                        />
+                      </svg>
+                      Login
+                    </button>
+                  </Link>
+                  <Link to="/signup" onClick={closeNav}>
+                    <button className="w-full py-2.5 px-4 flex items-center justify-center rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white font-medium border border-gray-200 dark:border-gray-600 transition-all">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5 mr-2"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
+                        />
+                      </svg>
+                      Sign Up
+                    </button>
+                  </Link>
+                </div>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.nav>
   );
 }

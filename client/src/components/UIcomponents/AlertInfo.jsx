@@ -13,16 +13,29 @@ const AlertInfo = ({ message, type }) => {
 
   if (!isVisible) return null;
 
+  // Determine the appropriate colors based on alert type
+  const alertColors = {
+    success:
+      "bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100 border-green-500",
+    error:
+      "bg-red-100 text-red-800 dark:bg-red-800 dark:text-red-100 border-red-500",
+    warning:
+      "bg-yellow-100 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-100 border-yellow-500",
+    info: "bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-100 border-blue-500",
+  };
+
   return (
     <div
-      className={`alert alert-${type} fixed top-64 left-1/2 transform -translate-x-1/2 mt-4 px-6 py-3 w-60 rounded-lg shadow-md`}
+      className={`fixed top-64 left-1/2 transform -translate-x-1/2 mt-4 px-6 py-3 w-60 rounded-lg shadow-md border flex items-center ${
+        alertColors[type] || alertColors.info
+      }`}
       style={{ zIndex: 9999 }}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
-        className="h-6 w-6 shrink-0 stroke-current"
+        className="h-6 w-6 shrink-0 stroke-current mr-2"
       >
         <path
           strokeLinecap="round"

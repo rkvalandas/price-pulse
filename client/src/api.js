@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const BACKEND_API_URL =
-  "https://price-pulse-api.vercel.app" || "http://localhost:8000";
+const BACKEND_API_URL = import.meta.env.VITE_BACKEND_URL;
 
 const API = axios.create({
   baseURL: BACKEND_API_URL,
