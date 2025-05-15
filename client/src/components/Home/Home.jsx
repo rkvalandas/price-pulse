@@ -886,7 +886,7 @@ export default function Home() {
 
             <motion.div
               className="step-item text-center max-w-xs"
-              initial={{ opacity: 0, x: 50 }}
+              initial={{ opacity: 0, x: 0 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
               viewport={{ once: true }}
