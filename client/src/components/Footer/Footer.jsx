@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="p-6 bg-gray-100 dark:bg-slate-950 text-gray-700 dark:text-gray-300 w-full mt-auto">
+    <footer className="p-6 bg-white dark:bg-slate-950 text-gray-700 dark:text-gray-300 w-full mt-auto">
       <div className="flex flex-col md:flex-row justify-between items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
         {/* Company Info */}
         <div className="text-center md:text-left">

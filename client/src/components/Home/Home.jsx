@@ -1,7 +1,6 @@
 // filepath: /Users/rkvalandasu/mini project/price_pulse/client/src/components/Home/Home.jsx
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import ThemeToggle from "../Header/ThemeToggle";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { searchProduct } from "../../api";
 
@@ -62,7 +61,6 @@ const backgroundStyles = `
 export default function Home() {
   const [url, setUrl] = useState("");
   const [isSearching, setIsSearching] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const navigate = useNavigate();
   
@@ -93,14 +91,6 @@ export default function Home() {
     };
   }, []);
 
-  // Add loading effect with timeout
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1500); // 1.5 second loading screen
-
-    return () => clearTimeout(timer);
-  }, []);
 
   const handleShareOnTwitter = () => {
     const tweetText = encodeURIComponent(
@@ -140,27 +130,6 @@ export default function Home() {
 
   return (
     <div className="w-full">
-      {/* Page Loading Animation */}
-      {isLoading && (
-        <div className="fixed inset-0 bg-white dark:bg-gray-900 z-50 flex items-center justify-center">
-          <div className="flex flex-col items-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
-              className="w-20 h-20 border-4 border-teal-500 border-t-transparent rounded-full animate-spin mb-4"
-            ></motion.div>
-            <motion.h2
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3, duration: 0.5 }}
-              className="text-xl font-medium text-teal-600 dark:text-teal-400"
-            >
-              Loading Price Pulse...
-            </motion.h2>
-          </div>
-        </div>
-      )}
 
       {/* Main Hero Section */}
       <section className="relative flex items-center justify-center min-h-screen overflow-hidden">
@@ -684,7 +653,7 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-16 bg-teal-50 dark:bg-gray-800">
+      <section id="about" className="py-16 bg-teal-100 dark:bg-gray-800">
         <div className="container mx-auto px-4">
           <motion.div
             className="text-center mb-10"
@@ -813,7 +782,7 @@ export default function Home() {
       </section>
 
       {/* How It Works Section */}
-      <section id="how-it-works" className="py-16 bg-white dark:bg-gray-900">
+      <section id="how-it-works" className="py-16 bg-teal-50 dark:bg-gray-900">
         <div className="container mx-auto px-4">
           <motion.div
             className="text-center mb-12"
@@ -939,7 +908,7 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-16 bg-teal-50 dark:bg-gray-800">
+      <section id="features" className="py-16 bg-teal-100 dark:bg-gray-800">
         <div className="container mx-auto px-4">
           <motion.div
             className="text-center mb-12"

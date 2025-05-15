@@ -79,7 +79,7 @@ export default function Header() {
 
   return (
     <motion.nav
-      className="fixed justify-self-center max-w-7xl w-11/12 top-0 mx-auto mt-4 inset-x-0 rounded-3xl shadow-lg z-50 bg-white dark:bg-gray-950 border border-gray-100 dark:border-gray-700 backdrop-blur-md bg-opacity-95 dark:bg-opacity-95"
+      className="fixed justify-self-center w-11/12 min-w-96 top-0 mx-auto mt-4 inset-x-0 rounded-3xl shadow-lg z-50 bg-white dark:bg-gray-950 border border-gray-100 dark:border-gray-700 backdrop-blur-md bg-opacity-95 dark:bg-opacity-95"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -310,7 +310,7 @@ export default function Header() {
       <AnimatePresence>
         {openNav && (
           <motion.div
-            className="md:hidden rounded-b-xl overflow-hidden border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800"
+            className="md:hidden rounded-b-3xl overflow-hidden border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-950"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -325,7 +325,7 @@ export default function Header() {
                     handleLogout();
                     closeNav();
                   }}
-                  className="w-full py-2.5 px-4 flex items-center justify-center rounded-lg bg-gradient-to-r from-red-500 to-red-600 text-white font-medium shadow-sm transition-all"
+                  className="w-full py-2.5 px-4 flex items-center justify-center rounded-xl bg-gradient-to-r from-red-500 to-red-600 text-white font-medium shadow-sm transition-all"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -346,7 +346,7 @@ export default function Header() {
               ) : (
                 <div className="space-y-2">
                   <Link to="/login" onClick={closeNav}>
-                    <button className="w-full py-2.5 px-4 flex items-center justify-center rounded-lg bg-gradient-to-r from-teal-500 to-teal-600 text-white font-medium shadow-sm transition-all">
+                    <button className="w-full py-2.5 px-4 flex items-center justify-center rounded-xl bg-gradient-to-r from-teal-500 to-teal-600 text-white font-medium shadow-sm transition-all">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-5 w-5 mr-2"
@@ -365,7 +365,7 @@ export default function Header() {
                     </button>
                   </Link>
                   <Link to="/signup" onClick={closeNav}>
-                    <button className="w-full py-2.5 px-4 flex items-center justify-center rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white font-medium border border-gray-200 dark:border-gray-600 transition-all">
+                    <button className="w-full py-2.5 mt-3 px-4 flex items-center justify-center rounded-xl bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white font-medium border border-gray-200 dark:border-gray-600 transition-all">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-5 w-5 mr-2"
