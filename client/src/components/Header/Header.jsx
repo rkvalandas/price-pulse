@@ -14,9 +14,6 @@ export default function Header() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Navigation items removed as per requirement
-  const navItems = [];
-
   // Handle logout
   const handleLogout = async () => {
     try {
@@ -79,7 +76,7 @@ export default function Header() {
 
   return (
     <motion.nav
-      className="fixed justify-self-center w-full top-0 mx-auto inset-x-0 shadow-lg z-50 bg-white dark:bg-gray-950 border-t border-gray-100 dark:border-gray-700 backdrop-blur-md bg-opacity-95 dark:bg-opacity-95"
+      className="fixed justify-self-center max-w-7xl w-5/6 top-0 mx-auto mt-4 inset-x-0 rounded-3xl shadow-lg z-50 bg-white dark:bg-gray-950 border border-gray-100 dark:border-gray-700 backdrop-blur-md bg-opacity-95 dark:bg-opacity-95"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
