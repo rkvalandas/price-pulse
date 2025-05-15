@@ -178,9 +178,8 @@ export default function Home() {
 
           {/* Interactive floating elements - with parallax effect */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            {/* Price tag SVGs with mouse parallax */}
-            <motion.div 
-              className="absolute top-[15%] left-[15%] text-white/30 dark:text-white/15"
+            {/* Price tag SVGs with mouse parallax */}            <motion.div
+              className="absolute top-[15%] left-[5%] md:left-[15%] text-white/30 dark:text-white/15"
               animate={{ 
                 y: [0, -15, 0],
                 rotate: [0, 5, 0, -5, 0]
@@ -194,16 +193,16 @@ export default function Home() {
                 rotate: { duration: 6, repeat: Infinity, repeatType: "reverse" }
               }}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 md:h-24 md:w-24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 sm:h-14 sm:w-14 md:h-24 md:w-24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M7 7h.01M7 3h5a1.99 1.99 0 013.465 0H21.5a1.5 1.5 0 011.5 1.5v3.505a1.5 1.5 0 01-.43 1.06l-7.07 7.07a1.5 1.5 0 01-2.12 0l-7.5-7.5a1.5 1.5 0 010-2.12L9.5 3.035A1.5 1.5 0 0111 3z" />
               </svg>
-              <div className="absolute -right-6 -top-6 bg-red-500 text-white text-xs rounded-full w-12 h-12 flex items-center justify-center font-bold transform rotate-12 shadow-lg">
+              <div className="absolute -right-4 -top-4 md:-right-6 md:-top-6 bg-red-500 text-white text-xs rounded-full w-8 h-8 md:w-12 md:h-12 flex items-center justify-center font-bold transform rotate-12 shadow-lg">
                 -30%
               </div>
             </motion.div>
 
             <motion.div 
-              className="absolute top-[65%] left-[75%] text-white/20 dark:text-white/10"
+              className="absolute top-[65%] left-[80%] sm:left-[75%] text-white/20 dark:text-white/10"
               animate={{ 
                 y: [0, 20, 0],
                 rotate: [0, -8, 0, 8, 0]
@@ -217,10 +216,10 @@ export default function Home() {
                 rotate: { duration: 8, repeat: Infinity, repeatType: "reverse" }
               }}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-20 w-20 md:h-32 md:w-32" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-14 w-14 sm:h-16 sm:w-16 md:h-32 md:w-32" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M7 7h.01M7 3h5a1.99 1.99 0 013.465 0H21.5a1.5 1.5 0 011.5 1.5v3.505a1.5 1.5 0 01-.43 1.06l-7.07 7.07a1.5 1.5 0 01-2.12 0l-7.5-7.5a1.5 1.5 0 010-2.12L9.5 3.035A1.5 1.5 0 0111 3z" />
               </svg>
-              <div className="absolute -left-4 -bottom-4 bg-green-500 text-white text-xs rounded-full w-14 h-14 flex items-center justify-center font-bold transform -rotate-12 shadow-lg">
+              <div className="absolute -left-2 -bottom-2 md:-left-4 md:-bottom-4 bg-green-500 text-white text-[10px] sm:text-xs rounded-full w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex items-center justify-center font-bold transform -rotate-12 shadow-lg">
                 SALE!
               </div>
             </motion.div>
@@ -242,17 +241,17 @@ export default function Home() {
                 scale: { duration: 4, repeat: Infinity, repeatType: "reverse" }
               }}
             >
-              <div className="text-center backdrop-blur-lg bg-white/5 dark:bg-white/10 p-3 rounded-full">
-                <div className="text-white text-opacity-30 dark:text-opacity-20 text-4xl md:text-5xl font-extrabold">
+              <div className="text-center backdrop-blur-lg bg-white/5 dark:bg-white/10 p-2 sm:p-3 rounded-full">
+                <div className="text-white text-opacity-30 dark:text-opacity-20 text-2xl sm:text-3xl md:text-5xl font-extrabold">
                   PRICE PULSE
                 </div>
-                <div className="w-full h-1 bg-gradient-to-r from-teal-500 to-blue-500 rounded-full mt-1"></div>
+                <div className="w-full h-0.5 sm:h-1 bg-gradient-to-r from-teal-500 to-blue-500 rounded-full mt-1"></div>
               </div>
             </motion.div>
 
             {/* Interactive graph trend line with data points */}
             <motion.div
-              className="absolute bottom-[20%] left-[8%] text-white/25 dark:text-white/15"
+              className="absolute bottom-[20%] left-[5%] sm:left-[8%] text-white/25 dark:text-white/15"
               style={{
                 x: mousePosition.x * 25,
                 y: mousePosition.y * 25
@@ -267,7 +266,7 @@ export default function Home() {
                 opacity: { delay: 0.5, duration: 1 }
               }}
             >
-              <svg width="200" height="100" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+              <svg width="150" height="75" className="sm:w-[180px] sm:h-[90px] md:w-[200px] md:h-[100px]" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
                 {/* Chart grid lines */}
                 <line x1="0" y1="80" x2="200" y2="80" stroke="currentColor" strokeWidth="0.5" strokeDasharray="5,5" opacity="0.3" />
                 <line x1="0" y1="60" x2="200" y2="60" stroke="currentColor" strokeWidth="0.5" strokeDasharray="5,5" opacity="0.3" />
@@ -404,7 +403,7 @@ export default function Home() {
 
             {/* Shopping cart icon with interactive notification */}
             <motion.div
-              className="absolute bottom-[35%] right-[25%] text-white/25 dark:text-white/15"
+              className="absolute bottom-[35%] right-[15%] sm:right-[20%] md:right-[25%] text-white/25 dark:text-white/15"
               style={{
                 x: mousePosition.x * 35,
                 y: mousePosition.y * 35
@@ -419,13 +418,13 @@ export default function Home() {
               }}
             >
               <div className="relative">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
                 
                 {/* Notification badge */}
                 <motion.div 
-                  className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold"
+                  className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 bg-red-500 text-white text-[10px] sm:text-xs rounded-full h-5 w-5 sm:h-6 sm:w-6 flex items-center justify-center font-bold"
                   initial={{ scale: 0 }}
                   animate={{ scale: [0, 1.2, 1] }}
                   transition={{ delay: 0.5, duration: 0.5 }}
@@ -435,7 +434,7 @@ export default function Home() {
                 
                 {/* Product added notification */}
                 <motion.div
-                  className="absolute -top-10 -right-20 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm text-gray-800 dark:text-white text-xs p-2 rounded shadow-lg"
+                  className="absolute -top-10 -right-8 sm:-right-16 md:-right-20 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm text-gray-800 dark:text-white text-[9px] sm:text-xs p-1.5 sm:p-2 rounded shadow-lg whitespace-nowrap"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ 
                     opacity: [0, 1, 1, 0],
@@ -455,7 +454,7 @@ export default function Home() {
 
             {/* Thematic messaging - stylized callout texts with parallax */}
             <motion.div
-              className="absolute top-[15%] right-[15%] text-white/20 dark:text-white/10 transform -rotate-6"
+              className="absolute top-[15%] right-[8%] sm:right-[12%] md:right-[15%] text-white/20 dark:text-white/10 transform -rotate-6"
               style={{
                 x: mousePosition.x * 15,
                 y: mousePosition.y * 15
@@ -464,13 +463,13 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1, duration: 0.8 }}
             >
-              <div className="bg-gradient-to-r from-teal-500/20 to-blue-500/20 backdrop-blur-sm p-3 rounded-lg shadow-lg">
-                <p className="text-2xl md:text-3xl font-bold text-white/80 dark:text-white/60">Never miss a deal!</p>
+              <div className="bg-gradient-to-r from-teal-500/20 to-blue-500/20 backdrop-blur-sm p-2 sm:p-3 rounded-lg shadow-lg">
+                <p className="text-base sm:text-xl md:text-3xl font-bold text-white/80 dark:text-white/60">Never miss a deal!</p>
               </div>
             </motion.div>
 
             <motion.div
-              className="absolute bottom-[25%] left-[15%] text-white/20 dark:text-white/10 transform rotate-3"
+              className="absolute bottom-[25%] left-[8%] sm:left-[12%] md:left-[15%] text-white/20 dark:text-white/10 transform rotate-3"
               style={{
                 x: mousePosition.x * -15,
                 y: mousePosition.y * -15
@@ -479,8 +478,8 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.5, duration: 0.8 }}
             >
-              <div className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 backdrop-blur-sm p-3 rounded-lg shadow-lg">
-                <p className="text-xl md:text-2xl font-bold text-white/80 dark:text-white/60">Save money today</p>
+              <div className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 backdrop-blur-sm p-2 sm:p-3 rounded-lg shadow-lg">
+                <p className="text-sm sm:text-lg md:text-2xl font-bold text-white/80 dark:text-white/60">Save money today</p>
               </div>
             </motion.div>
             
@@ -542,10 +541,10 @@ export default function Home() {
 
         {/* Enhanced overlay for better text readability with gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/30 dark:from-black/50 dark:to-black/60"></div>
-        <div className="flex items-center justify-center w-full px-4 py-12 pt-48 text-center z-10">
+        <div className="flex items-center justify-center w-full px-4 py-8 sm:py-10 md:py-12 pt-32 sm:pt-40 md:pt-48 text-center z-10">
           <div className="max-w-full min-w-72 w-full">
             <motion.h1
-              className="text-5xl font-bold mb-4 text-white [text-shadow:_0_2px_4px_rgba(0,0,0,0.5)] relative z-10"
+              className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 md:mb-4 text-white [text-shadow:_0_2px_4px_rgba(0,0,0,0.5)] relative z-10"
               initial={{ opacity: 0, y: -50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -553,13 +552,13 @@ export default function Home() {
               Track Product Prices
             </motion.h1>
             <motion.div
-              className="w-16 h-1 bg-white opacity-70 mx-auto mb-6"
+              className="w-12 sm:w-14 md:w-16 h-1 bg-white opacity-70 mx-auto mb-4 sm:mb-5 md:mb-6"
               initial={{ width: 0 }}
-              animate={{ width: 64 }}
+              animate={{ width: 56 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             />
             <motion.p
-              className="text-xl mb-8 text-white [text-shadow:_0_1px_3px_rgba(0,0,0,0.5)] max-w-2xl mx-auto relative z-10"
+              className="text-base sm:text-lg md:text-xl mb-6 sm:mb-7 md:mb-8 text-white [text-shadow:_0_1px_3px_rgba(0,0,0,0.5)] max-w-2xl mx-auto relative z-10"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.3 }}
@@ -570,37 +569,37 @@ export default function Home() {
 
             {/* Search Bar */}
             <motion.div
-              className="max-w-3xl mx-auto mb-8"
+              className="max-w-3xl mx-auto mb-6 sm:mb-7 md:mb-8"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
             >
               <form onSubmit={handleSearch} className="relative">
-                <div className="flex flex-col md:flex-row gap-3 items-center">
+                <div className="flex flex-col md:flex-row gap-2 sm:gap-3 items-center">
                   <div className="relative w-full">
                     <input
                       type="text"
                       placeholder="Paste an Amazon, Flipkart, or Myntra product URL here"
-                      className="w-full pl-5 pr-5 py-6 text-lg rounded-3xl border-teal-500 border-2 shadow-xl focus:border-teal-600 focus:ring-2 focus:ring-teal-300 bg-white/95 dark:bg-gray-800/95 dark:text-white dark:border-teal-400 focus:outline-none backdrop-blur-sm transition-all duration-300 hover:shadow-2xl"
+                      className="w-full pl-3 sm:pl-4 md:pl-5 pr-3 sm:pr-4 md:pr-5 py-4 sm:py-5 md:py-6 text-sm sm:text-base md:text-lg rounded-2xl sm:rounded-3xl border-teal-500 border-2 shadow-xl focus:border-teal-600 focus:ring-2 focus:ring-teal-300 bg-white/95 dark:bg-gray-800/95 dark:text-white dark:border-teal-400 focus:outline-none backdrop-blur-sm transition-all duration-300 hover:shadow-2xl"
                       value={url}
                       onChange={(e) => setUrl(e.target.value)}
                       required
                     />
                   </div>
                   <motion.button
-                    className="bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white rounded-full px-7 py-7 font-medium shadow-lg hover:shadow-xl w-full md:w-auto transition-all duration-300"
+                    className="bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white rounded-full px-5 sm:px-6 md:px-7 py-5 sm:py-6 md:py-7 font-medium shadow-lg hover:shadow-xl w-full md:w-auto transition-all duration-300"
                     type="submit"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     disabled={isSearching}
                   >
                     {isSearching ? (
-                      <div className="inline-block h-8 w-8 animate-spin rounded-full border-2 border-solid border-current border-e-transparent align-[-0.125em] text-white motion-reduce:animate-[spin_1.5s_linear_infinite]"></div>
+                      <div className="inline-block h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 animate-spin rounded-full border-2 border-solid border-current border-e-transparent align-[-0.125em] text-white motion-reduce:animate-[spin_1.5s_linear_infinite]"></div>
                     ) : (
                       <span className="flex items-center justify-center">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          className="h-8 w-8"
+                          className="h-5 w-5 sm:h-6 sm:w-6 md:h-8 md:w-8"
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor"
@@ -617,7 +616,7 @@ export default function Home() {
                   </motion.button>
                 </div>
               </form>
-              <p className="text-sm text-white [text-shadow:_0_1px_2px_rgba(0,0,0,0.5)] mt-2 bg-black/10 backdrop-blur-sm py-1.5 px-3 rounded-full inline-block">
+              <p className="text-xs sm:text-sm text-white [text-shadow:_0_1px_2px_rgba(0,0,0,0.5)] mt-2 bg-black/10 backdrop-blur-sm py-1 sm:py-1.5 px-2 sm:px-3 rounded-full inline-block">
                 Track prices from Amazon, Flipkart, Myntra and more!
               </p>
             </motion.div>
@@ -630,17 +629,17 @@ export default function Home() {
               transition={{ duration: 0.5, delay: 0.9 }}
             >
               <motion.button
-                className="px-4 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white text-sm flex items-center rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
+                className="px-3 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white text-xs sm:text-sm flex items-center rounded-md sm:rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
                 onClick={handleShareOnTwitter}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
+                  width="14"
+                  height="14"
                   fill="currentColor"
-                  className="mr-2"
+                  className="mr-1.5 sm:mr-2 w-3.5 h-3.5 sm:w-4 sm:h-4"
                   viewBox="0 0 16 16"
                 >
                   <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z" />
@@ -653,20 +652,20 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-16 bg-teal-100 dark:bg-gray-800">
+      <section id="about" className="py-10 sm:py-12 md:py-16 bg-teal-100 dark:bg-gray-800">
         <div className="container mx-auto px-4">
           <motion.div
-            className="text-center mb-10"
+            className="text-center mb-8 sm:mb-10"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl font-bold mb-4 text-teal-800 dark:text-teal-300">
+            <h2 className="text-2xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 text-teal-800 dark:text-teal-300">
               About Price Pulse
             </h2>
-            <div className="w-16 h-1 bg-teal-500 mx-auto mb-6"></div>
-            <p className="text-lg max-w-3xl mx-auto text-teal-900 dark:text-teal-100">
+            <div className="w-12 sm:w-14 md:w-16 h-1 bg-teal-500 mx-auto mb-4 sm:mb-5 md:mb-6"></div>
+            <p className="text-sm sm:text-base md:text-lg max-w-3xl mx-auto text-teal-900 dark:text-teal-100">
               Price Pulse is your ultimate companion for smart shopping. We help
               you track prices of your favorite products across e-commerce
               platforms, notifying you when prices drop so you never miss a deal
@@ -675,22 +674,22 @@ export default function Home() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-7 md:gap-8 mt-6 sm:mt-7 md:mt-8">
             <motion.div
-              className="bg-white dark:bg-gray-700 border-teal-200 dark:border-teal-700 rounded-3xl border-2 shadow-xl hover:shadow-2xl transition-all"
+              className="bg-white dark:bg-gray-700 border-teal-200 dark:border-teal-700 rounded-2xl sm:rounded-3xl border-2 shadow-xl hover:shadow-2xl transition-all"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
               viewport={{ once: true }}
             >
-              <div className="p-5">
-                <div className="text-4xl text-teal-500 mb-4">
+              <div className="p-4 sm:p-5">
+                <div className="text-3xl sm:text-4xl text-teal-500 mb-3 sm:mb-4">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
-                    className="w-12 h-12"
+                    className="w-10 h-10 sm:w-12 sm:h-12"
                   >
                     <path
                       strokeLinecap="round"
@@ -700,10 +699,10 @@ export default function Home() {
                     />
                   </svg>
                 </div>
-                <h3 className="text-lg font-bold mb-2 text-teal-700 dark:text-teal-300">
+                <h3 className="text-base sm:text-lg font-bold mb-1.5 sm:mb-2 text-teal-700 dark:text-teal-300">
                   Real-time Tracking
                 </h3>
-                <p className="text-teal-800 dark:text-teal-200">
+                <p className="text-sm sm:text-base text-teal-800 dark:text-teal-200">
                   Monitor product prices in real-time across multiple e-commerce
                   platforms.
                 </p>
@@ -711,20 +710,20 @@ export default function Home() {
             </motion.div>
 
             <motion.div
-              className="bg-white dark:bg-gray-700 border-teal-200 dark:border-teal-700 border-2 rounded-3xl shadow-xl hover:shadow-2xl transition-all"
+              className="bg-white dark:bg-gray-700 border-teal-200 dark:border-teal-700 border-2 rounded-2xl sm:rounded-3xl shadow-xl hover:shadow-2xl transition-all"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
               viewport={{ once: true }}
             >
-              <div className="p-5">
-                <div className="text-4xl text-teal-500 mb-4">
+              <div className="p-4 sm:p-5">
+                <div className="text-3xl sm:text-4xl text-teal-500 mb-3 sm:mb-4">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
-                    className="w-12 h-12"
+                    className="w-10 h-10 sm:w-12 sm:h-12"
                   >
                     <path
                       strokeLinecap="round"
@@ -734,10 +733,10 @@ export default function Home() {
                     />
                   </svg>
                 </div>
-                <h3 className="text-lg font-bold mb-2 text-teal-700 dark:text-teal-300">
+                <h3 className="text-base sm:text-lg font-bold mb-1.5 sm:mb-2 text-teal-700 dark:text-teal-300">
                   Instant Alerts
                 </h3>
-                <p className="text-teal-800 dark:text-teal-200">
+                <p className="text-sm sm:text-base text-teal-800 dark:text-teal-200">
                   Receive instant notifications when prices drop for your
                   tracked products.
                 </p>
@@ -745,20 +744,20 @@ export default function Home() {
             </motion.div>
 
             <motion.div
-              className="bg-white dark:bg-gray-700 border-teal-200 dark:border-teal-700 border-2 rounded-3xl shadow-xl hover:shadow-2xl transition-all"
+              className="bg-white dark:bg-gray-700 border-teal-200 dark:border-teal-700 border-2 rounded-2xl sm:rounded-3xl shadow-xl hover:shadow-2xl transition-all"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.5 }}
               viewport={{ once: true }}
             >
-              <div className="p-5">
-                <div className="text-4xl text-teal-500 mb-4">
+              <div className="p-4 sm:p-5">
+                <div className="text-3xl sm:text-4xl text-teal-500 mb-3 sm:mb-4">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
-                    className="w-12 h-12"
+                    className="w-10 h-10 sm:w-12 sm:h-12"
                   >
                     <path
                       strokeLinecap="round"
@@ -768,10 +767,10 @@ export default function Home() {
                     />
                   </svg>
                 </div>
-                <h3 className="text-lg font-bold mb-2 text-teal-700 dark:text-teal-300">
+                <h3 className="text-base sm:text-lg font-bold mb-1.5 sm:mb-2 text-teal-700 dark:text-teal-300">
                   Easy to Use
                 </h3>
-                <p className="text-teal-800 dark:text-teal-200">
+                <p className="text-sm sm:text-base text-teal-800 dark:text-teal-200">
                   Simple and intuitive interface for hassle-free price tracking
                   experience.
                 </p>
@@ -782,25 +781,25 @@ export default function Home() {
       </section>
 
       {/* How It Works Section */}
-      <section id="how-it-works" className="py-16 bg-teal-50 dark:bg-gray-900">
+      <section id="how-it-works" className="py-10 sm:py-12 md:py-16 bg-teal-50 dark:bg-gray-900">
         <div className="container mx-auto px-4">
           <motion.div
-            className="text-center mb-12"
+            className="text-center mb-8 sm:mb-10 md:mb-12"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl font-bold mb-4 text-teal-800 dark:text-teal-300">
+            <h2 className="text-2xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 text-teal-800 dark:text-teal-300">
               How It Works
             </h2>
-            <div className="w-16 h-1 bg-teal-500 mx-auto mb-6"></div>
-            <p className="text-lg max-w-3xl mx-auto text-teal-700 dark:text-teal-200">
+            <div className="w-12 sm:w-14 md:w-16 h-1 bg-teal-500 mx-auto mb-4 sm:mb-5 md:mb-6"></div>
+            <p className="text-sm sm:text-base md:text-lg max-w-3xl mx-auto text-teal-700 dark:text-teal-200">
               Start saving money in three simple steps
             </p>
           </motion.div>
 
-          <div className="flex flex-col md:flex-row justify-center items-center gap-8">
+          <div className="flex flex-col md:flex-row justify-center items-center gap-6 sm:gap-8">
             <motion.div
               className="step-item text-center max-w-xs"
               initial={{ opacity: 0, x: -50 }}
@@ -808,13 +807,13 @@ export default function Home() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <div className="step-number mb-4 mx-auto w-16 h-16 rounded-full bg-teal-600 text-white text-2xl flex items-center justify-center font-bold shadow-lg">
+              <div className="step-number mb-3 sm:mb-4 mx-auto w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-teal-600 text-white text-xl sm:text-2xl flex items-center justify-center font-bold shadow-lg">
                 1
               </div>
-              <h3 className="text-xl font-bold mb-2 text-teal-800 dark:text-teal-300">
+              <h3 className="text-lg sm:text-xl font-bold mb-1.5 sm:mb-2 text-teal-800 dark:text-teal-300">
                 Add Products
               </h3>
-              <p className="text-teal-700 dark:text-teal-200">
+              <p className="text-sm sm:text-base text-teal-700 dark:text-teal-200">
                 Simply paste the URL of the product you want to track from your
                 favorite e-commerce site.
               </p>
@@ -850,13 +849,13 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              <div className="step-number mb-4 mx-auto w-16 h-16 rounded-full bg-teal-600 text-white text-2xl flex items-center justify-center font-bold shadow-lg">
+              <div className="step-number mb-3 sm:mb-4 mx-auto w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-teal-600 text-white text-xl sm:text-2xl flex items-center justify-center font-bold shadow-lg">
                 2
               </div>
-              <h3 className="text-xl font-bold mb-2 text-teal-800 dark:text-teal-300">
+              <h3 className="text-lg sm:text-xl font-bold mb-1.5 sm:mb-2 text-teal-800 dark:text-teal-300">
                 Set Alerts
               </h3>
-              <p className="text-teal-700 dark:text-teal-200">
+              <p className="text-sm sm:text-base text-teal-700 dark:text-teal-200">
                 Configure price threshold alerts to be notified when the product
                 price drops to your target.
               </p>
@@ -892,13 +891,13 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.4 }}
               viewport={{ once: true }}
             >
-              <div className="step-number mb-4 mx-auto w-16 h-16 rounded-full bg-teal-600 text-white text-2xl flex items-center justify-center font-bold shadow-lg">
+              <div className="step-number mb-3 sm:mb-4 mx-auto w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-teal-600 text-white text-xl sm:text-2xl flex items-center justify-center font-bold shadow-lg">
                 3
               </div>
-              <h3 className="text-xl font-bold mb-2 text-teal-800 dark:text-teal-300">
+              <h3 className="text-lg sm:text-xl font-bold mb-1.5 sm:mb-2 text-teal-800 dark:text-teal-300">
                 Save Money
               </h3>
-              <p className="text-teal-700 dark:text-teal-200">
+              <p className="text-sm sm:text-base text-teal-700 dark:text-teal-200">
                 Receive instant notifications and purchase the product at the
                 best price.
               </p>
@@ -908,100 +907,101 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-16 bg-teal-100 dark:bg-gray-800">
+      <section id="features" className="py-10 sm:py-12 md:py-16 bg-teal-100 dark:bg-gray-800">
         <div className="container mx-auto px-4">
           <motion.div
-            className="text-center mb-12"
+            className="text-center mb-8 sm:mb-10 md:mb-12"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl font-bold mb-4 text-teal-800 dark:text-teal-300">
+            <h2 className="text-2xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 text-teal-800 dark:text-teal-300">
               Key Features
             </h2>
-            <div className="w-16 h-1 bg-teal-500 mx-auto mb-6"></div>
+            <div className="w-12 sm:w-14 md:w-16 h-1 bg-teal-500 mx-auto mb-4 sm:mb-5 md:mb-6"></div>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6">
             <motion.div
-              className="bg-white dark:bg-gray-700 shadow-xl hover:-translate-y-2 transition-all border-2 border-teal-100 dark:border-teal-700 rounded-3xl"
+              className="bg-white dark:bg-gray-700 shadow-xl hover:-translate-y-2 transition-all border-2 border-teal-100 dark:border-teal-700 rounded-2xl sm:rounded-3xl"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
               viewport={{ once: true }}
               whileHover={{ scale: 1.03 }}
             >
-              <div className="p-5">
-                <div className="mb-4 text-4xl bg-teal-100 dark:bg-teal-800 w-16 h-16 rounded-full flex items-center justify-center">
+              <div className="p-4 sm:p-5">
+                <div className="mb-3 sm:mb-4 text-3xl sm:text-4xl bg-teal-100 dark:bg-teal-800 w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center">
                   📊
                 </div>
-                <h3 className="text-lg font-bold mb-2 text-teal-700 dark:text-teal-300">
+                <h3 className="text-base sm:text-lg font-bold mb-1.5 sm:mb-2 text-teal-700 dark:text-teal-300">
                   Price History
                 </h3>
-                <p className="text-teal-700 dark:text-teal-200">
+                <p className="text-sm sm:text-base text-teal-700 dark:text-teal-200">
                   View complete price history charts to make informed decisions.
                 </p>
               </div>
             </motion.div>
 
             <motion.div
-              className="bg-white dark:bg-gray-700 shadow-xl hover:-translate-y-2 transition-all border-2 border-teal-100 dark:border-teal-700 rounded-3xl"
+              className="bg-white dark:bg-gray-700 shadow-xl hover:-translate-y-2 transition-all border-2 border-teal-100 dark:border-teal-700 rounded-2xl sm:rounded-3xl"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
               viewport={{ once: true }}
               whileHover={{ scale: 1.03 }}
             >
-              <div className="p-5">
-                <div className="mb-4 text-4xl bg-teal-100 dark:bg-teal-800 w-16 h-16 rounded-full flex items-center justify-center">
+              <div className="p-4 sm:p-5">
+                <div className="mb-3 sm:mb-4 text-3xl sm:text-4xl bg-teal-100 dark:bg-teal-800 w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center">
                   🔔
                 </div>
-                <h3 className="text-lg font-bold mb-2 text-teal-700 dark:text-teal-300">
+                <h3 className="text-base sm:text-lg font-bold mb-1.5 sm:mb-2 text-teal-700 dark:text-teal-300">
                   Custom Alerts
                 </h3>
-                <p className="text-teal-700 dark:text-teal-200">
+                <p className="text-sm sm:text-base text-teal-700 dark:text-teal-200">
                   Set custom price thresholds for alerts via email.
                 </p>
               </div>
             </motion.div>
 
             <motion.div
-              className="bg-white dark:bg-gray-700 shadow-xl hover:-translate-y-2 transition-all border-2 border-teal-100 dark:border-teal-700 rounded-3xl"
+              className="bg-white dark:bg-gray-700 shadow-xl hover:-translate-y-2 transition-all border-2 border-teal-100 dark:border-teal-700 rounded-2xl sm:rounded-3xl"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
               viewport={{ once: true }}
               whileHover={{ scale: 1.03 }}
             >
-              <div className="p-5">
-                <div className="mb-4 text-4xl bg-teal-100 dark:bg-teal-800 w-16 h-16 rounded-full flex items-center justify-center">
+              <div className="p-4 sm:p-5">
+                <div className="mb-3 sm:mb-4 text-3xl sm:text-4xl bg-teal-100 dark:bg-teal-800 w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center">
                   🔍
                 </div>
-                <h3 className="text-lg font-bold mb-2 text-teal-700 dark:text-teal-300">
+                <h3 className="text-base sm:text-lg font-bold mb-1.5 sm:mb-2 text-teal-700 dark:text-teal-300">
                   Product Comparison
                 </h3>
-                <p className="text-teal-700 dark:text-teal-200">
+                <p className="text-sm sm:text-base text-teal-700 dark:text-teal-200">
                   Compare prices across different platforms at a glance.
                 </p>
               </div>
             </motion.div>
 
             <motion.div
-              className="bg-white dark:bg-gray-700 shadow-xl hover:-translate-y-2 transition-all border-2 border-teal-100 dark:border-teal-700 rounded-3xl"
+              className="bg-white dark:bg-gray-700 shadow-xl hover:-translate-y-2 transition-all border-2 border-teal-100 dark:border-teal-700 rounded-2xl sm:rounded-3xl"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
               viewport={{ once: true }}
               whileHover={{ scale: 1.03 }}
             >
-              <div className="p-5">
-                <div className="mb-4 text-4xl bg-teal-100 dark:bg-teal-800 w-16 h-16 rounded-full flex items-center justify-center">
+              <div className="p-4 sm:p-5">
+                <div className="mb-3 sm:mb-4 text-3xl sm:text-4xl bg-teal-100 dark:bg-teal-800 w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center">
                   📱
                 </div>
-                <h3 className="text-lg font-bold mb-2 text-teal-700 dark:text-teal-300">
+                <h3 className="text-base sm:text-lg font-bold mb-1.5 sm:mb-2 text-teal-700 dark:text-teal-300">
                   Mobile Friendly
                 </h3>
-                <p className="text-teal-700 dark:text-teal-200">
+                <p className="text-sm sm:text-base text-teal-700 dark:text-teal-200">
                   Access from any device with our responsive design.
                 </p>
               </div>

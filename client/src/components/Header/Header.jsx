@@ -14,6 +14,9 @@ export default function Header() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Navigation items removed as per requirement
+  const navItems = [];
+
   // Handle logout
   const handleLogout = async () => {
     try {
