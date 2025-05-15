@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
-import { searchProduct } from "../../api";
+import { searchProduct, logout as logoutAPI } from "../../api";
 import { useAuth } from "../Authenticate/AuthContext";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "../../assets/logo.png";
@@ -17,6 +17,17 @@ export default function Header() {
   // Navigation items removed as per requirement
   const navItems = [];
 
+  // Handle logout
+  const handleLogout = async () => {
+    try {
+      await logoutAPI();
+      logout(); // Call the auth context logout function to remove the token
+      navigate("/");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
+
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 960) {
@@ -29,8 +40,8 @@ export default function Header() {
 
   // Redirect to alerts page when logged in
   useEffect(() => {
-    if (isAuthenticated && location.pathname === '/') {
-      navigate('/alerts');
+    if (isAuthenticated && location.pathname === "/") {
+      navigate("/alerts");
     }
   }, [isAuthenticated, location.pathname, navigate]);
 
@@ -42,15 +53,22 @@ export default function Header() {
     }
 
     try {
-      // Show loading state
-      navigate("/search", { state: { loading: true } });
+      // First navigate to product page with loading state
+      navigate("/product", { state: { isLoading: true } });
 
+      // Then fetch the data
       const { data } = await searchProduct(url); // Call the helper function
 
-      // Redirect to Product Page with product data
-      navigate("/product", { state: { data, user: data.user } });
+      // Once data is fetched, navigate again with the actual data
+      navigate("/product", {
+        state: { data, user: data.user, isLoading: false },
+      });
     } catch (error) {
       console.error("Error fetching product:", error);
+      // Navigate to product page with error state
+      navigate("/product", {
+        state: { error: "Failed to fetch product data", isLoading: false },
+      });
       // Could redirect to an error page or show error message
     }
   };
@@ -61,7 +79,7 @@ export default function Header() {
 
   return (
     <motion.nav
-      className="fixed justify-self-center max-w-7xl w-11/12 top-0 mx-auto mt-4 inset-x-0 rounded-xl shadow-lg z-50 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 backdrop-blur-md bg-opacity-95 dark:bg-opacity-95"
+      className="fixed justify-self-center max-w-7xl w-11/12 top-0 mx-auto mt-4 inset-x-0 rounded-3xl shadow-lg z-50 bg-white dark:bg-gray-950 border border-gray-100 dark:border-gray-700 backdrop-blur-md bg-opacity-95 dark:bg-opacity-95"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -83,14 +101,13 @@ export default function Header() {
 
         {/* Navigation Links removed as per requirement */}
         <div className="hidden md:flex items-center justify-center flex-1 ml-6">
-
           <div className="flex ml-6 flex-1 max-w-md">
             <form onSubmit={handleSearch} className="w-full relative">
               <div className="relative flex items-center w-full">
                 <input
                   name="search"
                   type="text"
-                  className={`w-full pl-4 pr-10 py-2.5 rounded-lg border ${
+                  className={`w-full pl-4 pr-10 py-2.5 rounded-2xl border ${
                     searchFocused
                       ? "border-teal-500 ring-2 ring-teal-200 dark:ring-teal-900/30"
                       : "border-gray-300 dark:border-gray-600"
@@ -140,8 +157,8 @@ export default function Header() {
                   whileTap={{ scale: 0.98 }}
                 >
                   <button
-                    onClick={logout}
-                    className="px-4 py-2 rounded-lg bg-gradient-to-r from-red-500 to-red-600 text-white font-medium shadow-sm hover:shadow-md transition-all flex items-center"
+                    onClick={handleLogout}
+                    className="px-4 py-2 rounded-xl bg-gradient-to-r from-red-500 to-red-600 text-white font-medium shadow-sm hover:shadow-md transition-all flex items-center"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -168,7 +185,7 @@ export default function Header() {
                   whileTap={{ scale: 0.95 }}
                 >
                   <Link to="/login">
-                    <button className="px-4 py-2 rounded-lg bg-gradient-to-r from-teal-500 to-teal-600 text-white font-medium shadow-sm hover:shadow-md transition-all flex items-center">
+                    <button className="px-4 py-2 rounded-xl bg-gradient-to-r from-teal-500 to-teal-600 text-white font-medium shadow-sm hover:shadow-md transition-all flex items-center">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-5 w-5 mr-1.5"
@@ -193,7 +210,7 @@ export default function Header() {
                   className="hidden sm:block"
                 >
                   <Link to="/signup">
-                    <button className="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white font-medium border border-gray-200 dark:border-gray-600 transition-all">
+                    <button className="px-4 py-2 rounded-xl bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white font-medium border border-gray-200 dark:border-gray-600 transition-all">
                       Sign Up
                     </button>
                   </Link>
@@ -305,7 +322,7 @@ export default function Header() {
               {isAuthenticated ? (
                 <button
                   onClick={() => {
-                    logout();
+                    handleLogout();
                     closeNav();
                   }}
                   className="w-full py-2.5 px-4 flex items-center justify-center rounded-lg bg-gradient-to-r from-red-500 to-red-600 text-white font-medium shadow-sm transition-all"

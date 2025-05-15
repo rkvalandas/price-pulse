@@ -16,19 +16,28 @@ const Login = () => {
     setTimeout(() => setShowAlert(false), 5000); // Hide alert after 5 seconds
   };
 
+  const [errorMessage, setErrorMessage] = useState("");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await login({ email, password });
-      triggerAlert();
+    setErrorMessage("");
 
-      // Navigate to dashboard or other pages after successful login
-      navigate("/");
+    try {
+      const response = await login({ email, password });
+
+      if (response && response.data && response.data.token) {
+        triggerAlert();
+        // Navigate to dashboard or other pages after successful login
+        navigate("/alerts");
+      } else {
+        setErrorMessage("Login failed. No authentication token received.");
+      }
     } catch (error) {
       // Handle errors gracefully
-      const errorMessage =
+      const message =
         error.response?.data?.message || "An error occurred. Please try again.";
-      console.log(errorMessage);
+      setErrorMessage(message);
+      console.log(message);
     }
   };
 
@@ -106,6 +115,13 @@ const Login = () => {
                     </Link>
                   </div>
                 </div>
+
+                {/* Error Message */}
+                {errorMessage && (
+                  <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                    <p>{errorMessage}</p>
+                  </div>
+                )}
 
                 {/* Login Button */}
                 <div className="mt-6">

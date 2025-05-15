@@ -14,8 +14,16 @@ async function handleSearchUrl(req, res) {
     // Fetch product data
     const product = await getProduct(url);
 
-    // Check if JWT token is provided in cookies
-    const token = req.cookies.jwt;
+    // Check if JWT token is provided in Authorization header
+    let token;
+    if (
+      req.headers.authorization &&
+      req.headers.authorization.startsWith("Bearer")
+    ) {
+      // Get token from header (format: "Bearer token")
+      token = req.headers.authorization.split(" ")[1];
+    }
+
     if (!token) {
       // If no token, return only product data
       return res.json({ product });

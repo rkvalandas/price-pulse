@@ -19,8 +19,17 @@ router.post("/forgot-password", forgotPassword);
 router.post("/reset-password", resetPassword);
 router.get("/verify", async (req, res) => {
   try {
-    // Check for JWT token in cookies
-    const token = req.cookies.jwt;
+    // Check for JWT token in Authorization header
+    let token;
+
+    if (
+      req.headers.authorization &&
+      req.headers.authorization.startsWith("Bearer")
+    ) {
+      // Get token from header (format: "Bearer token")
+      token = req.headers.authorization.split(" ")[1];
+    }
+
     if (!token) {
       return res.status(200).json({
         isAuthenticated: false,
@@ -63,6 +72,5 @@ router.get("/verify", async (req, res) => {
     });
   }
 });
-
 
 module.exports = router;

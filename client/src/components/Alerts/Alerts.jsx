@@ -321,7 +321,7 @@ export default function Alerts() {
       transition={{ duration: 0.5 }}
     >
       {/* Alerts Section */}
-      <section className="container mx-auto pt-36 pb-16 px-4">
+      <section className="container mx-auto pt-44 pb-16 px-4">
         {showLoginAlert && (
           <motion.div
             initial={{ opacity: 0, y: -20 }}

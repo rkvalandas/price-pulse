@@ -2,13 +2,27 @@ import axios from "axios";
 
 const BACKEND_API_URL = import.meta.env.VITE_BACKEND_URL;
 
+// Create axios instance
 const API = axios.create({
   baseURL: BACKEND_API_URL,
   headers: {
     "Content-Type": "application/json",
   },
-  withCredentials: true, // Include cookies with requests
 });
+
+// Add a request interceptor to add the Authorization header
+API.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers["Authorization"] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 // User-related API functions
 export const verifyEmail = async (data) => {
