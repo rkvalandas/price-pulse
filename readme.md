@@ -1,112 +1,36 @@
-# Price Pulse
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Overview
-**Price Pulse** is a web application that exclusively tracks Amazon product prices. By setting a target price, users receive instant email notifications whenever the price of their desired product matches or drops below the target. Designed with user convenience in mind, this MERN stack project offers seamless functionality for bargain hunters.
+## Getting Started
 
----
+First, run the development server:
 
-## Key Features
-- **Amazon Product Tracking**: Monitors product prices directly from Amazon.
-- **Price Alerts**: Notifies users via email when the target price is met or surpassed.
-- **Secure User Authentication**: Protects user accounts using JWT-based login and signup.
-- **Email Notifications**: Sends real-time alerts to users' registered email addresses.
-- **User Dashboard**: Enables easy management of tracked products and alerts.
-- **Responsive Interface**: Optimized for desktops, tablets, and mobile devices.
-
----
-
-## Live Demo
-Explore the application here: [Price Pulse Live](https://prize-pulse.vercel.app/)
-
----
-
-## Tech Stack
-### Frontend
-- **React.js**: Handles the UI/UX.
-- **TailwindCSS**: Ensures sleek and modern design.
-- **React Router DOM**: Manages navigation and routing.
-- **Axios**: Facilitates API requests.
-
-### Backend
-- **Node.js**: Executes server-side operations.
-- **Express.js**: Simplifies API development.
-- **MongoDB**: Stores user, product, and alert data.
-- **JWT**: Secures authentication processes.
-- **Nodemailer**: Powers email notification service.
-- **Cheerio**: Scrapes Amazon product prices.
-
----
-
-## Installation and Setup
-
-### Prerequisites
-- Node.js (v16 or above)
-- MongoDB (local or cloud instance)
-- npm or yarn
-
-### Clone the Repository
 ```bash
-$ git clone https://github.com/rkvalandas/price_pulse
-$ cd price-pulse
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-### Backend Setup
-1. Navigate to the backend directory:
-```bash
-$ cd server
-```
-2. Install dependencies:
-```bash
-$ npm install
-```
-3. Create a `.env` file in the `server` directory with these variables:
-```env
-PORT=5000
-MONGO_URI=<your_mongodb_connection_string>
-JWT_SECRET=<your_jwt_secret>
-EMAIL_USER=<your_email_address>
-EMAIL_PASS=<your_email_password>
-```
-4. Start the backend server:
-```bash
-$ npm start
-```
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### Frontend Setup
-1. Navigate to the frontend directory:
-```bash
-$ cd client
-```
-2. Install dependencies:
-```bash
-$ npm install
-```
-3. Start the development server:
-```bash
-$ npm run dev
-```
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
----
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## How to Use
-1. **Sign Up**: Create a new account on the [live application](https://price-pulse-seven.vercel.app/).
-2. **Log In**: Access your dashboard.
-3. **Add a Product**: Paste the Amazon product URL and set your desired target price.
-4. **Track Prices**: Monitor your tracked products in the dashboard.
-5. **Email Alerts**: Receive notifications for price drops directly in your inbox.
+## Learn More
 
----
+To learn more about Next.js, take a look at the following resources:
 
-## Contributing
-Contributions are welcome! Please fork the repository and submit a pull request. For major changes, please open an issue first to discuss what you would like to change.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
----
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## License
-This project is licensed under the MIT License.
+## Deploy on Vercel
 
----
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-## Contact
-- **Email**: valandasuramakrishna@gmail.com
-- **GitHub**: [rkvalandasu](https://github.com/rkvalandas)
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

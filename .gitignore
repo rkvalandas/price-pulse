@@ -6,6 +6,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # Runtime data
+node_modules
 pids
 *.pid
 *.seed
@@ -67,7 +68,6 @@ dist
 
 # Gatsby files
 .cache/
-public
 
 # vuepress build output
 .vuepress/dist
