@@ -181,14 +181,15 @@ const Login = () => {
       const response = await login({
         email: data.email,
         password: data.password,
+        rememberMe: !!data.rememberMe,
       });
 
-      if (response && response.data && response.data.token) {
+      if (response && response.status === 200) {
         triggerAlert();
         // Navigate to dashboard or other pages after successful login
         router.push("/alerts");
       } else {
-        setErrorMessage("Login failed. No authentication token received.");
+        setErrorMessage("Login failed. Authentication failed.");
       }
     } catch (error: unknown) {
       // Enhanced error handling with more specific messages

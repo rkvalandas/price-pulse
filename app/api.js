@@ -10,23 +10,11 @@ const API = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true, // This allows sending cookies with requests
 });
 
-// Add a request interceptor to add the Authorization header
-if (typeof window !== "undefined") {
-  API.interceptors.request.use(
-    (config) => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        config.headers["Authorization"] = `Bearer ${token}`;
-      }
-      return config;
-    },
-    (error) => {
-      return Promise.reject(error);
-    }
-  );
-}
+// No need for Authorization header interceptor because cookies are automatically sent
+// The axios instance is configured with withCredentials: true
 
 // User-related API functions
 export const verifyEmail = async (data) => {

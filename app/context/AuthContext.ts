@@ -9,10 +9,13 @@ interface AuthContextType {
     name?: string;
     email?: string;
   } | null;
-  login: (loginData: { email: string; password: string }) => Promise<{
+  login: (loginData: {
+    email: string;
+    password: string;
+    rememberMe?: boolean;
+  }) => Promise<{
     status?: number;
     data?: {
-      token?: string;
       user?: {
         _id?: string;
         name?: string;

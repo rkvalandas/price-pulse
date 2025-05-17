@@ -16,35 +16,22 @@ function AuthProvider({ children }: AuthProviderProps) {
   // Check login status on app load
   useEffect(() => {
     const checkLoginStatus = async () => {
-      // Check if token exists in localStorage
-      if (typeof window !== "undefined") {
-        const token = localStorage.getItem("token");
-
-        if (!token) {
-          setIsAuthenticated(false);
-          return;
-        }
-
-        try {
-          const response = await verify();
-          if (response.data.isAuthenticated) {
-            setIsAuthenticated(true);
-            // Store user data if available in the response
-            if (response.data.user) {
-              setUserData(response.data.user);
-            }
-          } else {
-            // Token is invalid or expired
-            localStorage.removeItem("token");
-            setIsAuthenticated(false);
-            setUserData(null);
+      try {
+        const response = await verify();
+        if (response.data.isAuthenticated) {
+          setIsAuthenticated(true);
+          // Store user data if available in the response
+          if (response.data.user) {
+            setUserData(response.data.user);
           }
-        } catch (error) {
-          console.error("Error checking authentication status:", error);
-          localStorage.removeItem("token");
+        } else {
           setIsAuthenticated(false);
           setUserData(null);
         }
+      } catch (error) {
+        console.error("Error checking authentication status:", error);
+        setIsAuthenticated(false);
+        setUserData(null);
       }
     };
 
@@ -63,7 +50,6 @@ function AuthProvider({ children }: AuthProviderProps) {
   type LoginReturnType = {
     status?: number;
     data?: {
-      token?: string;
       user?: {
         _id?: string;
         name?: string;
@@ -85,17 +71,12 @@ function AuthProvider({ children }: AuthProviderProps) {
       const response = await loginAPI(loginData); // Call the login API
 
       if (response.status === 200) {
-        // Store the token in localStorage
-        if (response.data?.token) {
-          localStorage.setItem("token", response.data.token);
-        }
-
         // Store user data (assuming the structure returned from API)
-        if (response.data?.user) {
+        if (response.data?._id) {
           setUserData({
-            _id: response.data.user._id,
-            name: response.data.user.name,
-            email: response.data.user.email,
+            _id: response.data._id,
+            name: response.data.name,
+            email: response.data.email,
           });
         }
 
@@ -104,8 +85,7 @@ function AuthProvider({ children }: AuthProviderProps) {
         return {
           status: response.status,
           data: {
-            token: response.data?.token,
-            user: response.data?.user,
+            user: response.data,
           },
         }; // Return the formatted response for components to use
       }
@@ -119,9 +99,7 @@ function AuthProvider({ children }: AuthProviderProps) {
   // Logout handler
   const handleLogout = async () => {
     try {
-      await logoutAPI(); // Call the logout API
-      // Remove token from localStorage
-      localStorage.removeItem("token");
+      await logoutAPI(); // Call the logout API which will clear the cookie on the server
       setIsAuthenticated(false);
       setUserData(null);
     } catch (error) {
