@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     "price tracking, price monitor, price alerts, shopping, deals, discounts",
   icons: {
     icon: [
-      { url: '/assets/logo.png' },
+      { url: '/logo.png' },
       { url: '/icon.png' },
       { url: '/favicon.ico' },
     ],
@@ -41,8 +41,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/assets/logo.png" />
-        <link rel="apple-touch-icon" href="/assets/logo.png" />
+        <link rel="icon" href="/logo.png" />
+        <link rel="apple-touch-icon" href="/logo.png" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen bg-white dark:bg-gray-900`}
