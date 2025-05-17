@@ -17,14 +17,20 @@ function AuthProvider({ children }: AuthProviderProps) {
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
+        console.log("Verifying authentication status...");
         const response = await verify();
+        console.log("Auth verification response:", response.data);
+
         if (response.data.isAuthenticated) {
+          console.log("User is authenticated");
           setIsAuthenticated(true);
           // Store user data if available in the response
           if (response.data.user) {
+            console.log("Setting user data:", response.data.user);
             setUserData(response.data.user);
           }
         } else {
+          console.log("User is not authenticated:", response.data.message);
           setIsAuthenticated(false);
           setUserData(null);
         }
@@ -68,10 +74,13 @@ function AuthProvider({ children }: AuthProviderProps) {
     loginData: LoginData
   ): Promise<LoginReturnType> => {
     try {
+      console.log("Attempting login with email:", loginData.email);
       const response = await loginAPI(loginData); // Call the login API
+      console.log("Login API response:", response.status, response.data);
 
       if (response.status === 200) {
         // Store user data (assuming the structure returned from API)
+        console.log("Login successful, setting user data");
         if (response.data?._id) {
           setUserData({
             _id: response.data._id,

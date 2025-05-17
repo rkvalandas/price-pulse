@@ -4,6 +4,11 @@ import axios from "axios";
 
 const BACKEND_API_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
+// Log the Backend URL in development
+if (process.env.NODE_ENV !== "production") {
+  console.log("Backend API URL:", BACKEND_API_URL);
+}
+
 // Create axios instance
 const API = axios.create({
   baseURL: BACKEND_API_URL,
@@ -64,9 +69,20 @@ export const resetPassword = async (data) => {
 
 export const login = async (userData) => {
   try {
-    return await API.post("/api/user/login", userData);
+    console.log("Login request with data:", { ...userData, password: "***" });
+    const response = await API.post("/api/user/login", userData);
+    console.log("Login response status:", response.status);
+    console.log("Login response headers:", response.headers);
+    console.log("Set-Cookie header present:", !!response.headers["set-cookie"]);
+    return response;
   } catch (error) {
     console.error("Error in login API call:", error);
+    if (error.response) {
+      console.error("Login error status:", error.response.status);
+      console.error("Login error data:", error.response.data);
+    } else if (error.request) {
+      console.error("Login error - no response received");
+    }
     throw error;
   }
 };
@@ -82,9 +98,16 @@ export const logout = async () => {
 
 export const verify = async () => {
   try {
-    return await API.get("/api/user/verify");
+    console.log("Calling verify endpoint...");
+    const response = await API.get("/api/user/verify");
+    console.log("Verify response:", response.status, response.data);
+    return response;
   } catch (error) {
     console.error("Error in verify API call:", error);
+    if (error.response) {
+      console.error("Response status:", error.response.status);
+      console.error("Response data:", error.response.data);
+    }
     throw error;
   }
 };
