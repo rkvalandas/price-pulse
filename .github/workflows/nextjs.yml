@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NEXT_PUBLIC_ENV: production
-      NEXT_PUBLIC_BACKEND_URL: https://your-production-backend-url.com
+      NEXT_PUBLIC_BACKEND_URL: https://price-pulse-backend.vercel.app
     steps:
       - name: Checkout
         uses: actions/checkout@v4
