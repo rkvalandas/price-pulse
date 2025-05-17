@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  output: 'export',
   images: {
+    unoptimized: true, // Required for static export
     remotePatterns: [
       {
         protocol: "https",
@@ -34,6 +36,10 @@ const nextConfig: NextConfig = {
         pathname: "/**",
       },
     ],
+  },
+  // Add your environment variables here if needed at build time
+  env: {
+    // BUILD_TIME_VAR: process.env.BUILD_TIME_VAR,
   },
 };
 
