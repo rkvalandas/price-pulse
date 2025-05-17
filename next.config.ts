@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: 'export',
+  output: "export",
+  basePath: "/price-pulse", // Add this line to match your GitHub Pages URL path
   images: {
     unoptimized: true, // Required for static export
     remotePatterns: [
