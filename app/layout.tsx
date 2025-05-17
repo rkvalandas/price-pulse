@@ -41,8 +41,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/logo.png" />
-        <link rel="apple-touch-icon" href="/logo.png" />
+        <link rel="icon" href={process.env.NEXT_PUBLIC_ENV === 'production' ? '/price-pulse/logo.png' : '/logo.png'} />
+        <link rel="apple-touch-icon" href={process.env.NEXT_PUBLIC_ENV === 'production' ? '/price-pulse/logo.png' : '/logo.png'} />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen bg-white dark:bg-gray-900`}

@@ -105,7 +105,7 @@ export default function HomePage() {
               <div className="absolute inset-0 bg-gradient-to-br from-[#00c6bc] to-[#0075ff] rounded-full opacity-20 blur-lg animate-pulse" />
               <div className="absolute inset-0 flex items-center justify-center">
                 <Image
-                  src="/logo.png"
+                  src={process.env.NEXT_PUBLIC_ENV === 'production' ? '/price-pulse/logo.png' : '/logo.png'}
                   alt="Price Pulse Logo"
                   width={130}
                   height={130}

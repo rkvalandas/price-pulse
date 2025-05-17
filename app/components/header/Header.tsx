@@ -112,7 +112,7 @@ export default function Header() {
             transition={{ type: "spring", stiffness: 400, damping: 10 }}
           >
             <Image
-              src="/logo.png"
+              src={process.env.NEXT_PUBLIC_ENV === 'production' ? '/price-pulse/logo.png' : '/logo.png'}
               alt="Price Pulse Logo"
               className="h-9 w-9 bg-slate-700 dark:bg-slate-950 rounded-full p-1"
               width={36}
