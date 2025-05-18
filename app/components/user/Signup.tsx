@@ -344,7 +344,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-[calc(100vh-10rem)] bg-gray-100 dark:bg-gray-900 pt-20">
+    <div className="flex items-center justify-center min-h-[calc(100vh-10rem)] from-teal-50 to-cyan-50 dark:bg-gray-900 pt-20 scrollbar-hide">
       {alert.show && (
         <div className="fixed top-24 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
           <AlertInfo

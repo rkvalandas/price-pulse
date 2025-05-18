@@ -94,7 +94,7 @@ const Footer = () => {
               <h3 className="font-bold text-gray-900 dark:text-white mb-4">
                 Company
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-3 scrollbar-hide">
                 <li>
                   <Link
                     href="/about"
@@ -134,7 +134,7 @@ const Footer = () => {
               <h3 className="font-bold text-gray-900 dark:text-white mb-4">
                 Help & Support
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-3 scrollbar-hide">
                 <li>
                   <Link
                     href="/contact"
@@ -174,7 +174,7 @@ const Footer = () => {
               <h3 className="font-bold text-gray-900 dark:text-white mb-4">
                 Legal
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-3 scrollbar-hide">
                 <li>
                   <Link
                     href="/privacy"

@@ -87,17 +87,18 @@ export default function HomePage() {
           ></div>
         </div>
 
-        {/* Hero Section */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-28">
+        {/* Hero Section - Better padding for mobile */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-16 md:py-36">
           {/* Logo and Header */}
           <motion.div
-            className="text-center mt-10 mb-16"
+            className="text-center mt-4 sm:mt-10 mb-8 sm:mb-16"
             initial={{ opacity: 10, y: 40 }}
             animate={{ opacity: 4, y: 0 }}
             transition={{ duration: 0.6 }}
           >
+            {/* Logo - Smaller on mobile */}
             <motion.div
-              className="mx-auto w-32 h-32 mb-6 relative"
+              className="mx-auto w-24 h-24 sm:w-32 sm:h-32 mb-4 sm:mb-6 relative"
               initial={{ scale: 1, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
@@ -115,9 +116,9 @@ export default function HomePage() {
               </div>
             </motion.div>
 
-            {/* Animated heading with enhanced gradient text */}
+            {/* Animated heading with responsive text sizing */}
             <motion.h1
-              className="text-5xl md:text-7xl font-bold tracking-tight mb-3"
+              className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight mb-2 sm:mb-3 px-1"
               style={{
                 WebkitTextFillColor: "transparent",
                 WebkitBackgroundClip: "text",
@@ -133,8 +134,9 @@ export default function HomePage() {
               Price Pulse
             </motion.h1>
 
+            {/* Subtitle - Better padding and font size for mobile */}
             <motion.p
-              className="text-xl md:text-2xl text-slate-800 dark:text-white mb-3 max-w-2xl mx-auto font-light"
+              className="text-lg sm:text-xl md:text-2xl text-slate-800 dark:text-white mb-2 sm:mb-3 max-w-2xl mx-auto font-light px-2"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.6 }}
@@ -146,30 +148,30 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.6 }}
-              className="mb-10 flex justify-center"
+              className="mb-6 sm:mb-10 flex justify-center"
             >
               <TaglineTyper />
             </motion.div>
 
-            {/* Search Form with enhanced styling */}
+            {/* Search Form with enhanced styling for mobile */}
             <motion.div
-              className="max-w-xl mx-auto relative z-10"
+              className="max-w-xl mx-auto relative z-10 px-3 sm:px-0"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.6 }}
             >
               {/* Glowing effect around the search form */}
-              <div className="absolute inset-0 bg-gradient-to-r from-[#00c6bc] via-[#0075ff] to-[#8b5cf6] rounded-2xl opacity-50 blur-md -z-10"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-[#00c6bc] via-[#0075ff] to-[#8b5cf6] rounded-xl sm:rounded-2xl opacity-50 blur-md -z-10"></div>
 
               <form
                 onSubmit={handleSearch}
                 className="relative backdrop-blur-sm"
               >
-                <div className="flex rounded-2xl shadow-lg overflow-hidden border border-slate-300/50 dark:border-gray-500/20 bg-white/80 dark:bg-white/5 backdrop-blur-2xl">
+                <div className="flex flex-col sm:flex-row rounded-xl sm:rounded-2xl shadow-lg overflow-hidden border border-slate-300/50 dark:border-gray-500/20 bg-white/80 dark:bg-white/5 backdrop-blur-2xl">
                   <input
                     type="text"
-                    placeholder="Paste a product URL from any retailer..."
-                    className="flex-grow px-5 py-5 focus:outline-none text-slate-800 dark:text-white bg-transparent placeholder:text-slate-500 dark:placeholder:text-gray-300/80 text-lg"
+                    placeholder="Paste a product URL..."
+                    className="flex-grow px-4 py-4 sm:px-5 sm:py-5 focus:outline-none text-slate-800 dark:text-white bg-transparent placeholder:text-slate-500 dark:placeholder:text-gray-300/80 text-base sm:text-lg"
                     value={url}
                     onChange={(e) => setUrl(e.target.value)}
                     required
@@ -177,16 +179,16 @@ export default function HomePage() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="animated-gradient-button text-white font-medium px-8 py-5 flex items-center justify-center transition-all shadow-md relative overflow-hidden"
+                    className="animated-gradient-button text-white font-medium px-5 py-3 sm:px-8 sm:py-5 flex items-center justify-center transition-all shadow-md relative overflow-hidden"
                   >
                     <span className="relative z-10 flex items-center">
                       {loading ? (
-                        <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        <div className="w-5 h-5 sm:w-6 sm:h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                       ) : (
                         <>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            className="h-5 w-5 mr-2"
+                            className="h-4 w-4 sm:h-5 sm:w-5 mr-2"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -208,28 +210,29 @@ export default function HomePage() {
                 </div>
               </form>
             </motion.div>
-            {/* Moved outside the form to fix overlap */}
+
+            {/* Supported sites badge - Better mobile styling */}
             <motion.div
-              className="mt-8 bg-white/60 dark:bg-white/10 backdrop-blur-sm rounded-full px-4 py-1 border border-slate-300/30 dark:border-white/10 inline-block mx-auto"
+              className="mt-4 sm:mt-8 bg-white/60 dark:bg-white/10 backdrop-blur-sm rounded-full px-3 py-1 sm:px-4 sm:py-1 border border-slate-300/30 dark:border-white/10 inline-block mx-auto"
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.9, duration: 0.4 }}
             >
-              <p className="text-sm text-slate-700 dark:text-white">
+              <p className="text-xs sm:text-sm text-slate-700 dark:text-white">
                 Works with Amazon, Flipkart, Myntra, and more!
               </p>
             </motion.div>
 
-            {/* Enhanced Feature Cards */}
+            {/* Feature Cards - Responsive grid with better spacing */}
             <motion.div
-              className="mt-40 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto relative z-10"
+              className="mt-16 sm:mt-24 md:mt-32 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 max-w-5xl mx-auto relative z-10 px-4 sm:px-2"
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.8 }}
             >
               {/* Feature 1 */}
               <motion.div
-                className="glass-card rounded-xl p-6 relative overflow-hidden"
+                className="glass-card rounded-xl p-5 sm:p-6 relative overflow-hidden"
                 whileHover={{
                   y: -5,
                   boxShadow:
@@ -239,10 +242,10 @@ export default function HomePage() {
               >
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#00c6bc] to-transparent"></div>
                 <div className="absolute inset-0 bg-gradient-to-br from-[#00c6bc]/10 to-transparent opacity-30 pointer-events-none"></div>
-                <div className="bg-[#00c6bc] w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <div className="bg-[#00c6bc] w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 shadow-lg">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 text-white"
+                    className="h-5 w-5 sm:h-6 sm:w-6 text-white"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -255,10 +258,10 @@ export default function HomePage() {
                     />
                   </svg>
                 </div>
-                <h3 className="font-bold text-xl text-slate-800 dark:text-white mb-3 text-center drop-shadow-sm">
+                <h3 className="font-bold text-lg sm:text-xl text-slate-800 dark:text-white mb-2 sm:mb-3 text-center drop-shadow-sm">
                   Simple Tracking
                 </h3>
-                <p className="text-slate-600 dark:text-gray-300 text-center">
+                <p className="text-slate-600 dark:text-gray-300 text-center text-sm sm:text-base">
                   Just paste the product URL and we&apos;ll start monitoring
                   prices for you across multiple retailers
                 </p>
@@ -266,7 +269,7 @@ export default function HomePage() {
 
               {/* Feature 2 */}
               <motion.div
-                className="glass-card rounded-xl p-6 relative overflow-hidden"
+                className="glass-card rounded-xl p-5 sm:p-6 relative overflow-hidden"
                 whileHover={{
                   y: -5,
                   boxShadow:
@@ -276,10 +279,10 @@ export default function HomePage() {
               >
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#0075ff] to-transparent"></div>
                 <div className="absolute inset-0 bg-gradient-to-br from-[#0075ff]/10 to-transparent opacity-30 pointer-events-none"></div>
-                <div className="bg-[#0075ff] w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <div className="bg-[#0075ff] w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 shadow-lg">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 text-white"
+                    className="h-5 w-5 sm:h-6 sm:w-6 text-white"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -292,22 +295,22 @@ export default function HomePage() {
                     />
                   </svg>
                 </div>
-                <h3 className="font-bold text-xl text-slate-800 dark:text-white mb-3 text-center drop-shadow-sm">
+                <h3 className="font-bold text-lg sm:text-xl text-slate-800 dark:text-white mb-2 sm:mb-3 text-center drop-shadow-sm">
                   Price Alerts
                 </h3>
-                <p className="text-slate-600 dark:text-gray-300 text-center">
+                <p className="text-slate-600 dark:text-gray-300 text-center text-sm sm:text-base">
                   Get notified immediately when prices drop to your target
                   amount
                 </p>
 
-                <div className="mt-4">
+                <div className="mt-3 sm:mt-4 flex justify-center">
                   <PulsingNotification />
                 </div>
               </motion.div>
 
               {/* Feature 3 */}
               <motion.div
-                className="glass-card rounded-xl p-6 relative overflow-hidden"
+                className="glass-card rounded-xl p-5 sm:p-6 relative overflow-hidden sm:col-span-2 md:col-span-1 mx-auto w-full max-w-sm sm:max-w-none"
                 whileHover={{
                   y: -5,
                   boxShadow:
@@ -317,10 +320,10 @@ export default function HomePage() {
               >
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#8b5cf6] to-transparent"></div>
                 <div className="absolute inset-0 bg-gradient-to-br from-[#8b5cf6]/10 to-transparent opacity-30 pointer-events-none"></div>
-                <div className="bg-[#8b5cf6] w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <div className="bg-[#8b5cf6] w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 shadow-lg">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 text-white"
+                    className="h-5 w-5 sm:h-6 sm:w-6 text-white"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -333,22 +336,22 @@ export default function HomePage() {
                     />
                   </svg>
                 </div>
-                <h3 className="font-bold text-xl text-slate-800 dark:text-white mb-3 text-center drop-shadow-sm">
+                <h3 className="font-bold text-lg sm:text-xl text-slate-800 dark:text-white mb-2 sm:mb-3 text-center drop-shadow-sm">
                   Price History
                 </h3>
-                <p className="text-slate-600 dark:text-gray-300 text-center">
+                <p className="text-slate-600 dark:text-gray-300 text-center text-sm sm:text-base">
                   View price trends and make informed buying decisions
                 </p>
 
-                <div className="mt-5 flex justify-center">
+                <div className="mt-3 sm:mt-5 flex justify-center">
                   <AnimatedPriceGraph />
                 </div>
               </motion.div>
             </motion.div>
 
-            {/* Price Example Section - Enhanced */}
+            {/* Price Example Section - Better layout for mobile */}
             <motion.div
-              className="mt-36 flex flex-col md:flex-row gap-8 items-center justify-center"
+              className="mt-16 sm:mt-24 md:mt-32 flex flex-col md:flex-row gap-6 sm:gap-8 items-center justify-center px-4 sm:px-0"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.6, duration: 0.6 }}
@@ -367,20 +370,20 @@ export default function HomePage() {
                 />
               </motion.div>
 
-              <div className="p-5 rounded-xl bg-white/70 dark:bg-white/5 backdrop-blur-sm border border-slate-300/50 dark:border-white/10 relative overflow-hidden">
+              <div className="p-4 sm:p-5 rounded-xl bg-white/70 dark:bg-white/5 backdrop-blur-sm border border-slate-300/50 dark:border-white/10 relative overflow-hidden w-full md:w-auto">
                 {/* Subtle animated gradient */}
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 animate-pulse pointer-events-none -z-10"></div>
 
-                <h3 className="font-semibold text-slate-800 dark:text-white/90 mb-2 text-lg">
+                <h3 className="font-semibold text-slate-800 dark:text-white/90 mb-1 sm:mb-2 text-base sm:text-lg">
                   Start Saving Today!
                 </h3>
-                <p className="text-slate-600 dark:text-gray-300 max-w-xs">
+                <p className="text-slate-600 dark:text-gray-300 max-w-xs text-sm sm:text-base">
                   Join thousands of smart shoppers who never overpay again.
                   Track prices and get notified instantly.
                 </p>
 
-                {/* CTA button */}
-                <button className="mt-4 bg-teal-500/90 hover:bg-teal-600 dark:bg-white/10 dark:hover:bg-white/20 text-white px-4 py-2 rounded-md border border-teal-500/50 dark:border-white/10 transition duration-300 flex items-center gap-2 group shadow-sm">
+                {/* CTA button - Larger touch target for mobile */}
+                <button className="w-full sm:w-auto mt-3 sm:mt-4 bg-teal-500/90 hover:bg-teal-600 dark:bg-white/10 dark:hover:bg-white/20 text-white px-4 py-3 sm:py-2 rounded-md border border-teal-500/50 dark:border-white/10 transition duration-300 flex items-center justify-center sm:justify-start gap-2 group shadow-sm">
                   <span>Get Started</span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -399,6 +402,9 @@ export default function HomePage() {
                 </button>
               </div>
             </motion.div>
+
+            {/* Added padding at the bottom for better mobile spacing */}
+            <div className="h-8 sm:h-12"></div>
           </motion.div>
         </div>
       </div>

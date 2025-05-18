@@ -194,7 +194,7 @@ export default function Product() {
   if (isLoading) {
     return (
       <div className="mx-auto bg-white dark:bg-gray-900 flex justify-center w-full">
-        <div className="w-full max-w-5xl flex flex-col rounded-xl p-4 mt-8">
+        <div className="w-full max-w-5xl flex flex-col rounded-xl p-4 mt-28">
           {/* Product Header Skeleton */}
           <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-lg w-full overflow-hidden mb-8">
             <div className="flex flex-col md:flex-row w-full animate-pulse">
@@ -348,14 +348,14 @@ export default function Product() {
 
   return (
     <div className="mx-auto bg-white dark:bg-gray-900 flex justify-center">
-      <div className="w-full max-w-5xl flex flex-col rounded-xl p-4 mt-8">
+      <div className="w-full max-w-5xl flex flex-col rounded-xl p-4 sm:p-4 mt-20 sm:mt-36">
         {/* Product Header Section */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-lg w-full overflow-hidden mb-8">
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-lg w-full overflow-hidden mb-4 sm:mb-8">
           <div className="flex flex-col md:flex-row w-full">
             {/* Product Image Section */}
-            <div className="md:w-2/5 bg-gray-50 dark:bg-gray-700 p-6 flex items-center justify-center">
+            <div className="md:w-2/5 bg-gray-50 dark:bg-gray-700 p-4 sm:p-6 flex items-center justify-center">
               <div
-                className="relative w-full h-64 md:h-80 flex items-center justify-center cursor-zoom-in"
+                className="relative w-full h-60 sm:h-64 md:h-80 flex items-center justify-center cursor-zoom-in"
                 onClick={() => setIsImageZoomed(!isImageZoomed)}
               >
                 {productImageUrl && !imageError ? (
@@ -426,7 +426,7 @@ export default function Product() {
             </div>
 
             {/* Product Details Section */}
-            <div className="md:w-3/5 p-6 md:p-8">
+            <div className="md:w-3/5 p-4 sm:p-6 md:p-8">
               {/* Website Badge and Share Button */}
               <div className="flex items-center justify-between mb-3">
                 <span className="bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs font-medium py-1 px-2 rounded">
@@ -436,7 +436,7 @@ export default function Product() {
                 <div className="relative">
                   <button
                     onClick={shareProduct}
-                    className="flex items-center space-x-1 text-sm bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-lg px-3 py-1.5 transition-colors duration-200"
+                    className="flex items-center space-x-1 text-sm bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-lg px-3 py-2 min-h-[44px] transition-colors duration-200"
                   >
                     <svg
                       className="w-4 h-4"
@@ -470,33 +470,28 @@ export default function Product() {
               </div>
 
               {/* Product Title */}
-              <h1 className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 mb-4 leading-tight">
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-white mb-4 leading-tight">
                 {productTitle}
               </h1>
 
-              {/* Pricing Section */}
-              <div className="mb-6">
-                <div className="flex items-baseline flex-wrap gap-2">
-                  <span className="text-3xl font-bold text-gray-900 dark:text-white">
+              {/* Pricing Information */}
+              <div className="mb-4">
+                <div className="flex flex-wrap items-baseline">
+                  <span className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mr-2">
                     {formattedCurrentPrice}
                   </span>
-
-                  {formattedOriginalPrice &&
-                    formattedCurrentPrice !== formattedOriginalPrice && (
+                  {productOriginalPrice &&
+                    formattedOriginalPrice !== formattedCurrentPrice && (
                       <span className="text-lg text-gray-500 dark:text-gray-400 line-through">
                         {formattedOriginalPrice}
                       </span>
                     )}
-
                   {discount && (
-                    <span className="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 text-sm font-medium py-1 px-2 rounded ml-2">
+                    <span className="ml-2 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 text-xs sm:text-sm font-medium py-1 px-2 rounded">
                       {discount}
                     </span>
                   )}
                 </div>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                  Price updated {new Date().toLocaleDateString()}
-                </p>
               </div>
 
               {/* Action Buttons */}
@@ -569,36 +564,20 @@ export default function Product() {
                   </Link>
                 )}
               </div>
-
-              {/* Set Alert Form */}
-              {showSetAlert && isAuthenticated && (
-                <div className="mb-6 transition-all duration-300 ease-in-out">
-                  <SetAlert
-                    productId={productData.productId || ""}
-                    productData={{
-                      id: productData.productId || "",
-                      title: productData.productTitle || "",
-                      image: productData.productImageUrl || "",
-                      currentPrice: parseFloat(productPrice || "0"),
-                      url: productData.productUrl || "",
-                    }}
-                  />
-                </div>
-              )}
             </div>
           </div>
         </div>
 
         {/* Product Tab Navigation */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-lg overflow-hidden mb-8">
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-lg overflow-hidden mb-4 sm:mb-8">
           {/* Tab Headers */}
-          <div className="flex border-b border-gray-200 dark:border-gray-700">
+          <div className="flex border-b border-gray-200 dark:border-gray-700 overflow-x-auto scrollbar-hide">
             <button
               onClick={() => setActiveTab("price-history")}
-              className={`flex items-center px-6 py-4 text-sm font-medium transition-colors duration-200 ${
+              className={`flex items-center px-3 sm:px-6 py-3 text-sm font-medium transition-colors duration-200 min-h-[44px] ${
                 activeTab === "price-history"
                   ? "border-b-2 border-teal-600 text-teal-600 dark:border-teal-500 dark:text-teal-500"
-                  : "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                  : "text-gray-600 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-500"
               }`}
             >
               <svg
@@ -624,10 +603,10 @@ export default function Product() {
 
             <button
               onClick={() => setActiveTab("specs")}
-              className={`flex items-center px-6 py-4 text-sm font-medium transition-colors duration-200 ${
+              className={`flex items-center px-3 sm:px-6 py-3 text-sm font-medium transition-colors duration-200 min-h-[44px] ${
                 activeTab === "specs"
                   ? "border-b-2 border-teal-600 text-teal-600 dark:border-teal-500 dark:text-teal-500"
-                  : "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                  : "text-gray-600 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-500"
               }`}
             >
               <svg
@@ -653,10 +632,10 @@ export default function Product() {
 
             <button
               onClick={() => setActiveTab("description")}
-              className={`flex items-center px-6 py-4 text-sm font-medium transition-colors duration-200 ${
+              className={`flex items-center px-3 sm:px-6 py-3 text-sm font-medium transition-colors duration-200 min-h-[44px] ${
                 activeTab === "description"
                   ? "border-b-2 border-teal-600 text-teal-600 dark:border-teal-500 dark:text-teal-500"
-                  : "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                  : "text-gray-600 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-500"
               }`}
             >
               <svg
@@ -781,7 +760,7 @@ export default function Product() {
 
                 {productSpecs ? (
                   <div
-                    className="prose prose-sm max-w-none dark:prose-invert prose-headings:text-gray-800 dark:prose-headings:text-gray-200 prose-p:text-gray-600 dark:prose-p:text-gray-300"
+                    className="prose prose-sm max-w-none dark:prose-invert prose-headings:text-gray-800 dark:prose-headings:text-gray-200 prose-p:text-gray-600 dark:prose-p:text-gray-300 scrollbar-hide"
                     dangerouslySetInnerHTML={{ __html: productSpecs }}
                   ></div>
                 ) : (
@@ -841,7 +820,7 @@ export default function Product() {
 
                 {productDescription ? (
                   <div
-                    className="prose prose-sm max-w-none dark:prose-invert prose-p:text-gray-600 dark:prose-p:text-gray-300"
+                    className="prose prose-sm max-w-none dark:prose-invert prose-p:text-gray-600 dark:prose-p:text-gray-300 scrollbar-hide"
                     dangerouslySetInnerHTML={{ __html: productDescription }}
                   ></div>
                 ) : (
@@ -873,91 +852,21 @@ export default function Product() {
           </div>
         </div>
 
-        {/* Additional Actions Section */}
-        <div className="flex flex-wrap justify-between items-center gap-4 mb-8">
-          <Link href="/">
-            <button className="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-medium rounded-lg transition-colors flex items-center">
-              <svg
-                className="w-5 h-5 mr-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M10 19l-7-7m0 0l7-7m-7 7h18"
-                ></path>
-              </svg>
-              Back to Home
-            </button>
-          </Link>
-
-          <div className="flex space-x-3">
-            <button
-              onClick={scrollToHistory}
-              className="px-5 py-2.5 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-900/30 dark:hover:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 font-medium rounded-lg transition-colors flex items-center"
-            >
-              <svg
-                className="w-5 h-5 mr-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-                ></path>
-              </svg>
-              View Price History
-            </button>
-
-            <a
-              href={productUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-5 py-2.5 bg-teal-50 hover:bg-teal-100 dark:bg-teal-900/30 dark:hover:bg-teal-900/50 text-teal-700 dark:text-teal-300 font-medium rounded-lg transition-colors flex items-center"
-            >
-              <svg
-                className="w-5 h-5 mr-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                ></path>
-              </svg>
-              Visit Store
-            </a>
-          </div>
-        </div>
-
-        {/* Similar Products Suggestion */}
-        <div className="bg-gradient-to-r from-teal-600/10 to-indigo-600/10 dark:from-teal-600/5 dark:to-indigo-600/5 rounded-xl p-6 mb-8 flex items-center justify-between">
+        {/* Price Alert Promotion */}
+        <div className="bg-gradient-to-r from-teal-600/10 to-indigo-600/10 dark:from-teal-600/5 dark:to-indigo-600/5 rounded-xl p-4 sm:p-6 mb-4 sm:mb-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
-              Looking for alternatives?
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1 text-center sm:text-left">
+              Want to save money?
             </h3>
-            <p className="text-gray-600 dark:text-gray-400">
-              Set a price alert and we&apos;ll notify you when better deals
-              arrive!
+            <p className="text-gray-600 dark:text-gray-400 text-center sm:text-left">
+              Set a price alert and we&apos;ll notify you when the price drops!
             </p>
           </div>
 
           {isAuthenticated ? (
             <button
               onClick={() => setShowSetAlert(!showSetAlert)}
-              className="px-5 py-3 bg-gradient-to-r from-teal-600 to-indigo-600 hover:from-teal-700 hover:to-indigo-700 text-white font-medium rounded-lg transition-all duration-300 flex items-center"
+              className="px-5 py-3 bg-gradient-to-r from-teal-600 to-indigo-600 hover:from-teal-700 hover:to-indigo-700 text-white font-medium rounded-lg transition-all duration-300 flex items-center justify-center w-full sm:w-auto min-h-[44px]"
             >
               <svg
                 className="w-5 h-5 mr-2"
@@ -976,8 +885,8 @@ export default function Product() {
               Set Price Alert
             </button>
           ) : (
-            <Link href="/login">
-              <button className="px-5 py-3 bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white font-medium rounded-lg transition-all duration-300 flex items-center">
+            <Link href="/login" className="w-full sm:w-auto">
+              <button className="px-5 py-3 bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white font-medium rounded-lg transition-all duration-300 flex items-center justify-center w-full min-h-[44px]">
                 <svg
                   className="w-5 h-5 mr-2"
                   fill="none"
@@ -997,6 +906,22 @@ export default function Product() {
             </Link>
           )}
         </div>
+
+        {/* Set Alert Form */}
+        {showSetAlert && isAuthenticated && (
+          <div className="mb-4 sm:mb-6 transition-all duration-300 ease-in-out">
+            <SetAlert
+              productId={productData.productId || ""}
+              productData={{
+                id: productData.productId || "",
+                title: productData.productTitle || "",
+                image: productData.productImageUrl || "",
+                currentPrice: parseFloat(productPrice || "0"),
+                url: productData.productUrl || "",
+              }}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

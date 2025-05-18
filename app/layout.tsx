@@ -23,13 +23,9 @@ export const metadata: Metadata = {
   keywords:
     "price tracking, price monitor, price alerts, shopping, deals, discounts",
   icons: {
-    icon: [
-      { url: '/logo.png' },
-      { url: '/icon.png' },
-      { url: '/favicon.ico' },
-    ],
-    apple: '/assets/logo.png',
-    shortcut: '/assets/logo.png',
+    icon: [{ url: "/logo.png" }, { url: "/icon.png" }, { url: "/favicon.ico" }],
+    apple: "/assets/logo.png",
+    shortcut: "/assets/logo.png",
   },
 };
 
@@ -43,14 +39,24 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/logo.png" />
         <link rel="apple-touch-icon" href="/logo.png" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        />
+        <meta name="theme-color" content="#0075ff" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta
+          name="apple-mobile-web-app-status-bar-style"
+          content="black-translucent"
+        />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen bg-white dark:bg-gray-900`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen bg-white dark:bg-gray-900 scrollbar-hide`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <AuthProvider>
             <Header />
-            <main className="flex-grow">{children}</main>
+            <main className="flex-grow scrollbar-hide">{children}</main>
             <Footer />
           </AuthProvider>
         </ThemeProvider>

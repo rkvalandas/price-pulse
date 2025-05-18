@@ -77,16 +77,18 @@ const SetAlert: React.FC<SetAlertProps> = ({ productData }) => {
         />
       )}
 
-      <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 mb-4">
+      <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-5 mb-4">
         <div className="mb-4">
           <label
             htmlFor="target-price"
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
           >
             Set Price Alert
           </label>
           <div className="flex items-center">
-            <span className="text-gray-500 dark:text-gray-400 mr-2">$</span>
+            <span className="text-gray-500 dark:text-gray-400 mr-2 text-lg">
+              $
+            </span>
             <input
               type="number"
               id="target-price"
@@ -95,10 +97,12 @@ const SetAlert: React.FC<SetAlertProps> = ({ productData }) => {
               min="0"
               step="0.01"
               placeholder="Enter target price"
-              className="flex-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500 sm:text-sm dark:bg-gray-800 dark:text-white"
+              className="flex-1 block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500 text-base dark:bg-gray-800 dark:text-white"
+              inputMode="decimal"
+              style={{ fontSize: "16px" }} /* Prevents iOS zoom */
             />
           </div>
-          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+          <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
             We&apos;ll notify you when the price drops to or below this amount.
           </p>
         </div>
@@ -106,7 +110,7 @@ const SetAlert: React.FC<SetAlertProps> = ({ productData }) => {
         <button
           onClick={handleSetAlert}
           disabled={loading}
-          className="w-full bg-gray-800 hover:bg-gray-900 dark:bg-gray-600 dark:hover:bg-gray-500 text-white font-medium py-2 px-4 rounded-lg flex items-center justify-center transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
+          className="w-full bg-gray-800 hover:bg-gray-900 dark:bg-gray-600 dark:hover:bg-gray-500 text-white font-medium py-3 px-4 rounded-lg flex items-center justify-center transition-colors disabled:opacity-70 disabled:cursor-not-allowed min-h-[44px]"
         >
           {loading ? (
             <>

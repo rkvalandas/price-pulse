@@ -41,6 +41,38 @@
   --border-radius-full: 9999px;
 }
 
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  :root {
+    /* Slightly reduced border radius on mobile for better proportions */
+    --border-radius-lg: 0.75rem;
+    --border-radius-xl: 1.25rem;
+  }
+
+  /* Improve touch targets on mobile */
+  button,
+  a,
+  [role="button"],
+  input[type="submit"],
+  input[type="button"] {
+    min-height: 44px; /* Apple's recommended minimum touch target size */
+  }
+
+  /* Add more vertical spacing between elements on mobile */
+  .glass-card {
+    margin-bottom: 1rem;
+  }
+
+  /* Improve form elements on mobile */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="url"],
+  textarea {
+    font-size: 16px !important; /* Prevents iOS zoom on focus */
+  }
+}
+
 /* Animated gradients */
 .animated-gradient-button {
   background-size: 200% auto;

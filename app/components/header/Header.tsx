@@ -99,14 +99,14 @@ export default function Header() {
 
   return (
     <motion.nav
-      className="fixed justify-self-center max-w-7xl w-11/12 top-0 mx-auto mt-4 inset-x-0 rounded-3xl shadow-lg z-50 bg-gray-100 dark:bg-gray-950 border border-gray-300 dark:border-gray-700 backdrop-blur-md bg-opacity-95 dark:bg-opacity-95"
+      className="fixed justify-self-center max-w-7xl w-[95%] sm:w-11/12 top-0 mx-auto mt-2 sm:mt-4 inset-x-0 rounded-2xl sm:rounded-3xl shadow-lg z-50 bg-gray-100 dark:bg-gray-950 border border-gray-300 dark:border-gray-700 backdrop-blur-md bg-opacity-95 dark:bg-opacity-95"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
     >
-      <div className="px-4 py-3 flex justify-between items-center">
+      <div className="px-2 sm:px-4 py-2 sm:py-3 flex justify-between items-center">
         {/* Logo */}
-        <Link href="/" className="flex items-center space-x-2">
+        <Link href="/" className="flex items-center space-x-1 sm:space-x-2">
           <motion.div
             whileHover={{ rotate: 10, scale: 1.1 }}
             transition={{ type: "spring", stiffness: 400, damping: 10 }}
@@ -114,7 +114,7 @@ export default function Header() {
             <Image
               src="/logo.png"
               alt="Price Pulse Logo"
-              className="h-9 w-9 bg-slate-700 dark:bg-slate-950 rounded-full p-1"
+              className="h-8 w-8 sm:h-9 sm:w-9 bg-slate-700 dark:bg-slate-950 rounded-full p-1"
               width={36}
               height={36}
               priority
@@ -246,19 +246,20 @@ export default function Header() {
           </div>
 
           <div className="md:hidden flex items-center">
-            <div className="pr-3">
+            <div className="pr-2 sm:pr-3">
               <ThemeToggle />
             </div>
             {/* Mobile Menu Toggle */}
             <motion.button
-              className="p-1.5 rounded-lg bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600"
+              className="p-1.5 rounded-lg bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 touch-manipulation"
               onClick={() => setOpenNav(!openNav)}
               whileTap={{ scale: 0.9 }}
+              aria-label="Toggle mobile menu"
             >
               {openNav ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-gray-700 dark:text-gray-200"
+                  className="h-5 w-5 sm:h-6 sm:w-6 text-gray-700 dark:text-gray-200"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -273,7 +274,7 @@ export default function Header() {
               ) : (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-gray-700 dark:text-gray-200"
+                  className="h-5 w-5 sm:h-6 sm:w-6 text-gray-700 dark:text-gray-200"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"

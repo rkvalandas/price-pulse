@@ -49,7 +49,7 @@ const AlertCard = ({
 
   return (
     <motion.div
-      className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-xl rounded-xl overflow-hidden"
+      className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-xl rounded-xl overflow-hidden scrollbar-hide"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.95 }}
@@ -60,7 +60,7 @@ const AlertCard = ({
           "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
       }}
     >
-      <div className="p-5">
+      <div className="p-4 sm:p-5">
         <div className="flex items-start justify-between mb-2">
           <h3 className="text-xs font-semibold text-teal-600 dark:text-teal-400 uppercase tracking-wide">
             Price Alert
@@ -75,14 +75,14 @@ const AlertCard = ({
         </div>
 
         <div className="mb-3">
-          <h2 className="font-bold text-lg text-gray-800 dark:text-white line-clamp-2">
+          <h2 className="font-bold text-base sm:text-lg text-gray-800 dark:text-white line-clamp-2">
             {alert.title}
           </h2>
         </div>
 
         {/* Product Image */}
         <div className="mb-4">
-          <div className="relative h-48 w-full rounded-lg overflow-hidden">
+          <div className="relative h-40 sm:h-48 w-full rounded-lg overflow-hidden">
             {alert.imageUrl ? (
               <Image
                 src={alert.imageUrl}
@@ -101,143 +101,107 @@ const AlertCard = ({
           </div>
         </div>
 
-        <div className="mb-5 pb-4 border-b border-gray-100 dark:border-gray-700">
-          <div className="flex items-center mb-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4 text-gray-500 dark:text-gray-400 mr-2"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z"
-              />
-            </svg>
-            <p className="text-gray-600 dark:text-gray-300">
-              <span className="font-semibold text-gray-700 dark:text-gray-200">
-                Target Price:{" "}
-              </span>
-              <motion.span
-                className="text-lg font-bold text-teal-600 dark:text-teal-400"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 500 }}
-              >
-                ₹{alert.targetPrice}
-              </motion.span>
-            </p>
+        {/* Price and Target Information */}
+        <div className="mb-5">
+          <div className="flex justify-between mb-2">
+            <span className="text-gray-600 dark:text-gray-400 text-sm">
+              Current Price:
+            </span>
+            <span className="font-semibold text-gray-900 dark:text-white">
+              ₹{new Intl.NumberFormat("en-IN").format(alert.price)}
+            </span>
           </div>
-
-          {/* Current price removed as requested */}
-
-          <div className="flex items-center mt-3 text-xs text-gray-500 dark:text-gray-400">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4 mr-1"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-            Created{" "}
-            {new Date(alert.createdAt).toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "short",
-              day: "numeric",
-            })}
+          <div className="flex justify-between">
+            <span className="text-gray-600 dark:text-gray-400 text-sm">
+              Target Price:
+            </span>
+            <span className="font-semibold text-teal-600 dark:text-teal-400">
+              ₹{new Intl.NumberFormat("en-IN").format(alert.targetPrice)}
+            </span>
           </div>
         </div>
 
-        <div className="flex justify-between items-center">
-          <motion.button
-            className="px-3 py-2 text-sm font-medium bg-red-500 hover:bg-red-600 text-white rounded-lg flex items-center disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row gap-2">
+          <button
+            onClick={() => onViewPrice(alert.url)}
+            className="flex-1 py-2.5 sm:py-2 px-3 sm:px-2 bg-teal-100 dark:bg-teal-900/30 text-teal-800 dark:text-teal-300 font-medium rounded-lg transition-colors hover:bg-teal-200 dark:hover:bg-teal-900/50 flex items-center justify-center text-sm min-h-[44px]"
+          >
+            <svg
+              className="w-4 h-4 mr-1"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+              ></path>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+              ></path>
+            </svg>
+            Check Price
+          </button>
+          <button
             onClick={handleDelete}
             disabled={isDeleting}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            className="flex-1 py-2.5 sm:py-2 px-3 sm:px-2 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 font-medium rounded-lg transition-colors hover:bg-red-200 dark:hover:bg-red-900/50 flex items-center justify-center text-sm min-h-[44px]"
           >
             {isDeleting ? (
-              <>
-                <svg
-                  className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  ></circle>
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  ></path>
-                </svg>
-                Deleting
-              </>
+              <svg
+                className="animate-spin h-4 w-4"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
             ) : (
               <>
                 <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4 mr-1"
+                  className="w-4 h-4 mr-1"
                   fill="none"
-                  viewBox="0 0 24 24"
                   stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
                     d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                  />
+                  ></path>
                 </svg>
-                Delete
+                Delete Alert
               </>
             )}
-          </motion.button>
-
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <button
-              onClick={() => onViewPrice(alert.url)}
-              className="px-3 py-2 text-sm font-medium bg-teal-600 hover:bg-teal-700 text-white rounded-lg flex items-center"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4 mr-1"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              View Current Price
-            </button>
-          </motion.div>
+          </button>
         </div>
       </div>
     </motion.div>
   );
 };
 
+// Main User Alerts Component
 export default function UserAlerts() {
   const [alerts, setAlerts] = useState<Alert[]>([]);
   const [loading, setLoading] = useState(true); // Unified loading state
@@ -455,49 +419,34 @@ export default function UserAlerts() {
 
   return (
     <motion.div
-      className="bg-gray-50 dark:bg-gray-900 min-h-screen"
+      className="min-h-screen bg-white dark:bg-gray-900 pt-16 sm:pt-20 pb-8 sm:pb-12"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
     >
-      {/* Alerts Section */}
-      <section className="container mx-auto pt-44 pb-16 px-4">
-        {notification && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="mb-6"
-          >
-            <AlertInfo
-              message={notification.message}
-              type={
-                notification.type as "success" | "error" | "info" | "warning"
-              }
-            />
-          </motion.div>
-        )}
-
+      <section className="max-w-7xl mx-auto px-4 sm:px-6">
         <motion.div
-          className="flex flex-col md:flex-row md:items-center md:justify-between mb-8"
-          variants={headerVariants}
-          initial="hidden"
-          animate="visible"
+          className="mb-8"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
         >
-          <div className="mb-4 md:mb-0">
-            <h2 className="text-3xl font-bold text-gray-800 dark:text-white">
-              Your Price Alerts
-            </h2>
-            <p className="text-gray-600 dark:text-gray-300 mt-1">
-              Get notified when prices drop to your target
-            </p>
-          </div>
-
-          <div>
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+          <div className="flex flex-col sm:flex-row items-center justify-between mb-4 sm:mb-6">
+            <div>
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-white">
+                Your Price Alerts
+              </h1>
+              <p className="text-gray-600 dark:text-gray-400 mt-1">
+                We&apos;ll notify you when prices drop below your target
+              </p>
+            </div>
+            <motion.div
+              className="mt-4 sm:mt-0"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+            >
               <Link
-                href="/product"
-                className="inline-flex items-center px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white font-medium rounded-lg transition-colors shadow-md"
+                href="/"
+                className="px-4 py-2.5 bg-teal-600 hover:bg-teal-700 text-white font-medium rounded-lg flex items-center transition-colors shadow-md min-h-[44px]"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -522,7 +471,7 @@ export default function UserAlerts() {
         {isAuthenticated ? (
           alerts.length === 0 ? (
             <motion.div
-              className="flex flex-col items-center justify-center py-16 bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700"
+              className="flex flex-col items-center justify-center py-12 sm:py-16 bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
@@ -578,7 +527,7 @@ export default function UserAlerts() {
                 transition={{ delay: 0.6 }}
               >
                 <Link
-                  href="/product"
+                  href="/"
                   className="px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white font-medium rounded-lg flex items-center transition-colors shadow-md"
                 >
                   <svg
@@ -601,7 +550,7 @@ export default function UserAlerts() {
             </motion.div>
           ) : (
             <motion.div
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
               variants={containerVariants}
               initial="hidden"
               animate="visible"
@@ -618,7 +567,7 @@ export default function UserAlerts() {
           )
         ) : (
           <motion.div
-            className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-8 text-center border border-gray-200 dark:border-gray-700"
+            className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 sm:p-8 text-center border border-gray-200 dark:border-gray-700"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -678,7 +627,7 @@ export default function UserAlerts() {
               >
                 <Link
                   href="/login"
-                  className="px-5 py-2 bg-teal-600 hover:bg-teal-700 text-white font-medium rounded-lg transition-colors shadow-md"
+                  className="px-5 py-3 bg-teal-600 hover:bg-teal-700 text-white font-medium rounded-lg transition-colors shadow-md min-h-[44px] flex items-center justify-center"
                 >
                   Log In
                 </Link>
@@ -689,12 +638,78 @@ export default function UserAlerts() {
               >
                 <Link
                   href="/signup"
-                  className="px-5 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white font-medium rounded-lg transition-colors shadow-md"
+                  className="px-5 py-3 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white font-medium rounded-lg transition-colors shadow-md min-h-[44px] flex items-center justify-center"
                 >
                   Sign Up
                 </Link>
               </motion.div>
             </motion.div>
+          </motion.div>
+        )}
+
+        {/* Notification Toast */}
+        {notification && (
+          <motion.div
+            className={`fixed bottom-4 left-0 right-0 mx-auto w-max max-w-md px-6 py-3 rounded-lg shadow-lg z-50 flex items-center ${
+              notification.type === "success"
+                ? "bg-green-500 text-white"
+                : notification.type === "error"
+                ? "bg-red-500 text-white"
+                : "bg-blue-500 text-white"
+            }`}
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+          >
+            {notification.type === "success" && (
+              <svg
+                className="w-5 h-5 mr-2 flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+            )}
+            {notification.type === "error" && (
+              <svg
+                className="w-5 h-5 mr-2 flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+            )}
+            {notification.type === "info" && (
+              <svg
+                className="w-5 h-5 mr-2 flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+            )}
+            <span>{notification.message}</span>
           </motion.div>
         )}
       </section>

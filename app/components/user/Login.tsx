@@ -250,160 +250,226 @@ const Login = () => {
 
   return (
     <>
-      {!isAuthenticated && (
-        <div className="flex items-center justify-center min-h-[calc(100vh-10rem)] bg-gray-100 dark:bg-gray-900 pt-24">
-          {showAlert && (
-            <AlertInfo
-              message={
-                verificationSent
-                  ? "Verification email sent successfully!"
-                  : "Login Successful"
-              }
-              type="success"
-            />
-          )}
-          <div className="max-w-md min-w-80 w-5/6 bg-white dark:bg-gray-800 shadow-xl rounded-xl border border-gray-200 dark:border-gray-700">
-            <div className="p-6">
-              <h2 className="text-2xl font-bold mb-6 dark:text-white">Login</h2>
+      {isAuthenticated ? (
+        <div className="flex flex-col items-center justify-center min-h-screen px-4 py-12 bg-gradient-to-r from-teal-50 to-cyan-50 dark:from-gray-900 dark:to-gray-800">
+          <div className="w-full max-w-md space-y-8 p-6 sm:p-8 bg-white dark:bg-gray-800 shadow-xl rounded-2xl border border-gray-200 dark:border-gray-700">
+            <div className="text-center">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
+                You are already logged in
+              </h1>
+              <p className="mt-2 text-gray-600 dark:text-gray-400">
+                You've already been authenticated.
+              </p>
+            </div>
 
-              {/* Unverified account message */}
+            <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 justify-center mt-6">
+              <button
+                className="py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 min-h-[44px]"
+                onClick={() => router.push("/alerts")}
+              >
+                Go to Alerts
+              </button>
+              <button
+                className="py-3 px-4 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 min-h-[44px]"
+                onClick={() => router.push("/")}
+              >
+                Return Home
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="flex items-center justify-center min-h-screen px-4 py-12 bg-gradient-to-r from-teal-50 to-cyan-50 dark:from-gray-900 dark:to-gray-800">
+          <div className="w-full max-w-md relative">
+            {showAlert && (
+              <div className="absolute top-0 left-0 right-0 -mt-12 mx-auto">
+                <AlertInfo
+                  message="Login successful. Redirecting..."
+                  type="success"
+                />
+              </div>
+            )}
+
+            <div className="bg-white dark:bg-gray-800 shadow-xl rounded-2xl px-5 sm:px-8 py-8 border border-gray-200 dark:border-gray-700">
+              <div className="mb-6 sm:mb-8 text-center">
+                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+                  Welcome Back
+                </h2>
+                <p className="mt-2 text-sm sm:text-base text-gray-600 dark:text-gray-400">
+                  Sign in to track your product prices
+                </p>
+              </div>
+
+              {/* Unverified account alert */}
               {unverifiedAccount.status && (
-                <div className="mb-6 p-4 bg-amber-100 border-l-4 border-amber-500 text-amber-800 rounded-md">
-                  <p className="font-medium">{unverifiedAccount.message}</p>
+                <div className="mb-6 p-4 bg-amber-50 border-l-4 border-amber-500 text-amber-800 rounded-md">
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5 text-amber-500"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                        />
+                      </svg>
+                    </div>
+                    <div className="ml-3">
+                      <p className="text-sm font-medium">
+                        {unverifiedAccount.message}
+                      </p>
+                      <p className="mt-1 text-xs">
+                        Email: {unverifiedAccount.email}
+                      </p>
 
-                  {!showVerifyForm ? (
-                    <div className="mt-3 flex flex-wrap gap-3">
-                      {verificationSent ? (
-                        <div className="text-green-600 font-medium">
-                          Verification email sent successfully! Please check
-                          your inbox.
+                      {verificationSent && (
+                        <div className="mt-2 p-2 bg-green-50 text-green-800 text-sm rounded">
+                          Verification email sent! Check your inbox.
                         </div>
-                      ) : (
-                        <button
-                          onClick={handleResendVerification}
-                          disabled={isResendingVerification}
-                          className={`inline-flex items-center mr-2 px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-amber-600 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 ${
-                            isResendingVerification
-                              ? "opacity-70 cursor-not-allowed"
-                              : ""
-                          }`}
-                        >
-                          {isResendingVerification ? (
-                            <>
-                              <svg
-                                className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                              >
-                                <circle
-                                  className="opacity-25"
-                                  cx="12"
-                                  cy="12"
-                                  r="10"
-                                  stroke="currentColor"
-                                  strokeWidth="4"
-                                ></circle>
-                                <path
-                                  className="opacity-75"
-                                  fill="currentColor"
-                                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                                ></path>
-                              </svg>
-                              Sending...
-                            </>
-                          ) : (
-                            "Resend Verification Email"
-                          )}
-                        </button>
                       )}
 
-                      <button
-                        onClick={() => setShowVerifyForm(true)}
-                        className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
-                      >
-                        Enter Verification Code
-                      </button>
-                    </div>
-                  ) : (
-                    <form onSubmit={handleVerifySubmit} className="mt-4">
-                      <div className="mb-4">
-                        <label
-                          htmlFor="verificationCode"
-                          className="block text-sm font-medium text-amber-800 mb-1"
-                        >
-                          Enter 6-digit verification code
-                        </label>
-                        <div className="flex gap-2">
-                          <input
-                            type="text"
-                            id="verificationCode"
-                            value={verificationCode}
-                            onChange={(e) =>
-                              setVerificationCode(
-                                e.target.value
-                                  .replace(/[^0-9]/g, "")
-                                  .substring(0, 6)
-                              )
-                            }
-                            placeholder="000000"
-                            maxLength={6}
-                            className="w-full px-3 py-2 border border-amber-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 bg-white"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="flex gap-2">
-                        <button
-                          type="submit"
-                          disabled={
-                            isVerifying || verificationCode.length !== 6
-                          }
-                          className={`inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 ${
-                            isVerifying || verificationCode.length !== 6
-                              ? "opacity-70 cursor-not-allowed"
-                              : ""
-                          }`}
-                        >
-                          {isVerifying ? (
-                            <>
-                              <svg
-                                className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                              >
-                                <circle
-                                  className="opacity-25"
-                                  cx="12"
-                                  cy="12"
-                                  r="10"
-                                  stroke="currentColor"
-                                  strokeWidth="4"
-                                ></circle>
-                                <path
-                                  className="opacity-75"
-                                  fill="currentColor"
-                                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                                ></path>
-                              </svg>
-                              Verifying...
-                            </>
-                          ) : (
-                            "Verify"
+                      {/* Action buttons */}
+                      {!showVerifyForm ? (
+                        <div className="mt-3 flex flex-col sm:flex-row gap-2">
+                          {!verificationSent && (
+                            <button
+                              onClick={handleResendVerification}
+                              disabled={isResendingVerification}
+                              className={`inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-amber-600 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 min-h-[44px] ${
+                                isResendingVerification
+                                  ? "opacity-70 cursor-not-allowed"
+                                  : ""
+                              }`}
+                            >
+                              {isResendingVerification ? (
+                                <>
+                                  <svg
+                                    className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                  >
+                                    <circle
+                                      className="opacity-25"
+                                      cx="12"
+                                      cy="12"
+                                      r="10"
+                                      stroke="currentColor"
+                                      strokeWidth="4"
+                                    ></circle>
+                                    <path
+                                      className="opacity-75"
+                                      fill="currentColor"
+                                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                    ></path>
+                                  </svg>
+                                  Sending...
+                                </>
+                              ) : (
+                                "Resend Verification Email"
+                              )}
+                            </button>
                           )}
-                        </button>
 
-                        <button
-                          type="button"
-                          onClick={() => setShowVerifyForm(false)}
-                          className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                    </form>
-                  )}
+                          <button
+                            onClick={() => setShowVerifyForm(true)}
+                            className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 min-h-[44px]"
+                          >
+                            Enter Verification Code
+                          </button>
+                        </div>
+                      ) : (
+                        <form onSubmit={handleVerifySubmit} className="mt-4">
+                          <div className="mb-4">
+                            <label
+                              htmlFor="verificationCode"
+                              className="block text-sm font-medium text-amber-800 mb-1"
+                            >
+                              Enter 6-digit verification code
+                            </label>
+                            <div className="flex gap-2">
+                              <input
+                                type="text"
+                                id="verificationCode"
+                                value={verificationCode}
+                                onChange={(e) =>
+                                  setVerificationCode(
+                                    e.target.value
+                                      .replace(/[^\d]/g, "")
+                                      .substring(0, 6)
+                                  )
+                                }
+                                placeholder="000000"
+                                maxLength={6}
+                                className="w-full px-3 py-2 border border-amber-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 bg-white text-base"
+                                style={{
+                                  fontSize: "16px",
+                                }} /* Prevents iOS zoom */
+                                inputMode="numeric"
+                                autoComplete="one-time-code"
+                              />
+                            </div>
+                          </div>
+
+                          <div className="flex flex-col sm:flex-row gap-2">
+                            <button
+                              type="submit"
+                              disabled={
+                                isVerifying || verificationCode.length !== 6
+                              }
+                              className={`inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 min-h-[44px] ${
+                                isVerifying || verificationCode.length !== 6
+                                  ? "opacity-70 cursor-not-allowed"
+                                  : ""
+                              }`}
+                            >
+                              {isVerifying ? (
+                                <>
+                                  <svg
+                                    className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                  >
+                                    <circle
+                                      className="opacity-25"
+                                      cx="12"
+                                      cy="12"
+                                      r="10"
+                                      stroke="currentColor"
+                                      strokeWidth="4"
+                                    ></circle>
+                                    <path
+                                      className="opacity-75"
+                                      fill="currentColor"
+                                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                    ></path>
+                                  </svg>
+                                  Verifying...
+                                </>
+                              ) : (
+                                "Verify"
+                              )}
+                            </button>
+
+                            <button
+                              type="button"
+                              onClick={() => setShowVerifyForm(false)}
+                              className="inline-flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 min-h-[44px]"
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        </form>
+                      )}
+                    </div>
+                  </div>
                 </div>
               )}
 
@@ -426,12 +492,15 @@ const Login = () => {
                     type="email"
                     id="email"
                     {...register("email")}
-                    className={`w-full px-3 py-2 border ${
+                    className={`w-full px-3 py-3 border ${
                       errors.email
                         ? "border-red-500"
                         : "border-gray-300 dark:border-gray-600"
-                    } rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 dark:bg-gray-700 dark:text-white`}
+                    } rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 dark:bg-gray-700 dark:text-white text-base min-h-[44px]`}
                     placeholder="your@email.com"
+                    style={{ fontSize: "16px" }} /* Prevents iOS zoom */
+                    autoComplete="email"
+                    inputMode="email"
                   />
                   {errors.email && (
                     <p className="mt-1 text-sm text-red-500">
@@ -441,10 +510,10 @@ const Login = () => {
                 </div>
 
                 <div className="mb-6">
-                  <div className="flex justify-between mb-2">
+                  <div className="flex flex-wrap justify-between mb-2">
                     <label
                       htmlFor="password"
-                      className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                      className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 sm:mb-0"
                     >
                       Password
                     </label>
@@ -457,20 +526,25 @@ const Login = () => {
                   </div>
                   <div className="relative">
                     <input
-                      type={showPassword ? "text" : "password"} // Toggle between text and password type
+                      type={showPassword ? "text" : "password"}
                       id="password"
                       {...register("password")}
-                      className={`w-full px-3 py-2 border ${
+                      className={`w-full px-3 py-3 border ${
                         errors.password
                           ? "border-red-500"
                           : "border-gray-300 dark:border-gray-600"
-                      } rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 dark:bg-gray-700 dark:text-white`}
+                      } rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 dark:bg-gray-700 dark:text-white text-base min-h-[44px]`}
                       placeholder="••••••••"
+                      style={{ fontSize: "16px" }} /* Prevents iOS zoom */
+                      autoComplete="current-password"
                     />
                     <button
                       type="button"
-                      onClick={() => setShowPassword(!showPassword)} // Toggle password visibility
-                      className="absolute inset-y-0 right-0 flex items-center pr-3"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute inset-y-0 right-0 flex items-center pr-3 min-h-[44px] min-w-[44px] justify-center"
+                      aria-label={
+                        showPassword ? "Hide password" : "Show password"
+                      }
                     >
                       {showPassword ? (
                         <svg
@@ -523,11 +597,11 @@ const Login = () => {
                     id="rememberMe"
                     {...register("rememberMe")}
                     type="checkbox"
-                    className="h-4 w-4 text-teal-600 focus:ring-teal-500 border-gray-300 rounded"
+                    className="h-5 w-5 text-teal-600 focus:ring-teal-500 border-gray-300 rounded"
                   />
                   <label
                     htmlFor="rememberMe"
-                    className="ml-2 block text-sm text-gray-700 dark:text-gray-300"
+                    className="ml-2 text-sm text-gray-700 dark:text-gray-300 min-h-[44px] flex items-center"
                   >
                     Remember me
                   </label>
@@ -536,7 +610,7 @@ const Login = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 ${
+                  className={`w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 min-h-[44px] ${
                     isSubmitting ? "opacity-70 cursor-not-allowed" : ""
                   }`}
                 >
@@ -583,7 +657,7 @@ const Login = () => {
                 </div>
 
                 <div className="mt-6">
-                  <p className="text-center text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-center text-base text-gray-600 dark:text-gray-400">
                     Don&apos;t have an account?{" "}
                     <Link
                       href="/signup"
