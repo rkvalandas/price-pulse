@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import BrandedBackground from "../components/ui/BrandedBackground";
+import Link from "next/link";
 
 export default function Sitemap() {
   return (
@@ -33,48 +34,48 @@ export default function Sitemap() {
               <ul className="space-y-2 text-gray-600 dark:text-gray-300">
                 <li>
                   •{" "}
-                  <a
+                  <Link
                     href="/"
                     className="hover:text-blue-600 dark:hover:text-blue-400"
                   >
                     Home
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   •{" "}
-                  <a
+                  <Link
                     href="/login"
                     className="hover:text-blue-600 dark:hover:text-blue-400"
                   >
                     Login
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   •{" "}
-                  <a
+                  <Link
                     href="/signup"
                     className="hover:text-blue-600 dark:hover:text-blue-400"
                   >
                     Sign Up
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   •{" "}
-                  <a
+                  <Link
                     href="/alerts"
                     className="hover:text-blue-600 dark:hover:text-blue-400"
                   >
                     Alerts
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   •{" "}
-                  <a
+                  <Link
                     href="/product"
                     className="hover:text-blue-600 dark:hover:text-blue-400"
                   >
                     Products
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -85,39 +86,39 @@ export default function Sitemap() {
               <ul className="space-y-2 text-gray-600 dark:text-gray-300">
                 <li>
                   •{" "}
-                  <a
+                  <Link
                     href="/careers"
                     className="hover:text-blue-600 dark:hover:text-blue-400"
                   >
                     Careers
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   •{" "}
-                  <a
+                  <Link
                     href="/faq"
                     className="hover:text-blue-600 dark:hover:text-blue-400"
                   >
                     FAQ
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   •{" "}
-                  <a
+                  <Link
                     href="/terms"
                     className="hover:text-blue-600 dark:hover:text-blue-400"
                   >
                     Terms of Service
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   •{" "}
-                  <a
+                  <Link
                     href="/cookie-policy"
                     className="hover:text-blue-600 dark:hover:text-blue-400"
                   >
                     Cookie Policy
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
