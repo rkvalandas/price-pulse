@@ -258,7 +258,7 @@ const Login = () => {
                 You are already logged in
               </h1>
               <p className="mt-2 text-gray-600 dark:text-gray-400">
-                You've already been authenticated.
+                You&apos;ve already been authenticated.
               </p>
             </div>
 

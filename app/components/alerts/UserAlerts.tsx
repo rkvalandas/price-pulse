@@ -4,7 +4,6 @@ import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { deleteAlert, getAlerts, searchProduct } from "../../api";
 import { useAuth } from "../../context/AuthContext";
-import AlertInfo from "../ui/AlertInfo";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -347,17 +346,8 @@ export default function UserAlerts() {
     },
   };
 
-  const headerVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut",
-      },
-    },
-  };
+  // Motion variants for animated elements
+  // (headerVariants removed as it's not being used)
 
   // Render Loading
   if (loading) {

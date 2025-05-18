@@ -573,7 +573,10 @@ export default function Product() {
           {/* Tab Headers */}
           <div className="flex border-b border-gray-200 dark:border-gray-700 overflow-x-auto scrollbar-hide">
             <button
-              onClick={() => setActiveTab("price-history")}
+              onClick={() => {
+                setActiveTab("price-history");
+                scrollToHistory(); // Utilize the scrollToHistory function
+              }}
               className={`flex items-center px-3 sm:px-6 py-3 text-sm font-medium transition-colors duration-200 min-h-[44px] ${
                 activeTab === "price-history"
                   ? "border-b-2 border-teal-600 text-teal-600 dark:border-teal-500 dark:text-teal-500"
