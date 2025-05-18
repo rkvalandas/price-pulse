@@ -65,6 +65,7 @@ node_modules/
 # Nuxt.js build / generate output
 .nuxt
 dist
+out
 
 # Gatsby files
 .cache/
